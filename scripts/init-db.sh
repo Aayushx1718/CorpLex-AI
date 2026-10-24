@@ -13,3 +13,4 @@ else
 fi
 # Additive migrations are designed to run repeatedly without removing data.
 docker compose exec -T db sh -c 'psql -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" -d "$POSTGRES_DB"' < db/002_ingestion.sql
+docker compose exec -T db sh -c 'psql -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" -d "$POSTGRES_DB"' < db/003_analytics.sql

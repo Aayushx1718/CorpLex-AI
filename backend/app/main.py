@@ -7,6 +7,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from app.config import get_settings
 from app.routes import build_router
 from app.uploads import UploadLimitMiddleware
+from app.analytics import build_analytics_router
 
 settings = get_settings()
 engine = create_engine(settings.database_url, pool_pre_ping=True, connect_args={"connect_timeout": 3})
@@ -18,7 +19,7 @@ async def lifespan(app: FastAPI):
     engine.dispose()
 
 
-app = FastAPI(title="CorpLex AI", version="0.2.0", lifespan=lifespan)
+app = FastAPI(title="CorpLex AI", version="0.3.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware, allow_origins=settings.cors_origins,
     allow_credentials=False, allow_methods=["GET", "POST"], allow_headers=["*"],
@@ -26,6 +27,7 @@ app.add_middleware(
 
 app.add_middleware(UploadLimitMiddleware)
 app.include_router(build_router(engine))
+app.include_router(build_analytics_router(engine))
 
 
 class Health(BaseModel):
@@ -44,7 +46,7 @@ def ready() -> Health:
     """Readiness: PostgreSQL is reachable and the initial schema is installed."""
     try:
         with engine.connect() as connection:
-            connection.execute(text("SELECT document_version_id FROM document_sources LIMIT 0"))
+            connection.execute(text("SELECT document_id FROM analytics_latest_documents LIMIT 0"))
     except SQLAlchemyError:
         raise HTTPException(status_code=503, detail="Database or schema unavailable") from None
     return Health(status="ready")

@@ -17,7 +17,7 @@ async function readResponse(response: Response) {
   return response.json();
 }
 
-export default function ContractRepository() {
+export default function ContractRepository({ onIngested, inspectRequest }: { onIngested?: () => void; inspectRequest?: { id: string; key: number } } = {}) {
   const [items, setItems] = useState<Summary[]>([]);
   const [offset, setOffset] = useState(0);
   const [refresh, setRefresh] = useState(0);
@@ -62,6 +62,7 @@ export default function ContractRepository() {
       setDocument(result.document);
       setNotice(result.duplicate ? 'Identical content already exists. The existing document is shown; no duplicate was created.' : 'Document ingested. Review the extracted evidence and obligation candidates below.');
       setOffset(0); setRefresh(value => value + 1);
+      onIngested?.();
       for (const name of ['file', 'title']) {
         const input = form.elements.namedItem(name);
         if (input instanceof HTMLInputElement) input.value = '';
@@ -76,6 +77,8 @@ export default function ContractRepository() {
     catch (err) { setError(err instanceof Error ? err.message : 'Could not open document.'); }
     finally { setLoadingDocument(false); }
   }
+
+  useEffect(() => { if (inspectRequest) void openDocument(inspectRequest.id); }, [inspectRequest]);
 
   return <section id="contracts" className="repository">
     <div className="section-title"><h2>Contract repository</h2><span>Source-backed ingestion</span></div>

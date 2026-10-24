@@ -1,6 +1,6 @@
 # CorpLex AI
 
-Corporate contract intelligence and financial risk analytics. **Phase 2 ingestion**: a working FastAPI service, React/TypeScript/Tailwind upload workspace, PostgreSQL storage, deterministic PDF/DOCX extraction and original synthetic contracts. Analytics, ML, RAG and agents remain planned. Decision-support information only; not legal advice.
+Corporate contract intelligence and financial risk analytics. **Phase 3 analytics**: a working FastAPI service, React/TypeScript/Tailwind upload workspace, PostgreSQL storage, deterministic PDF/DOCX extraction, SQL-backed interactive analytics and original synthetic contracts. ML, RAG and agents remain planned. Decision-support information only; not legal advice.
 
 ## Run locally
 
@@ -42,7 +42,7 @@ curl --fail http://127.0.0.1:8000/api/ready
 curl --fail http://127.0.0.1:5173/api/health
 ```
 
-Stop terminal servers with Ctrl-C; `docker compose stop db` stops the database without deleting data. The initialization script bootstraps the initial schema if absent, then applies the repeatable additive Phase 2 migration. Existing contract data is preserved; future migrations require review. Do not use `down -v` on data you need. If ports conflict, stop only your own processes or configure alternate ports and update the Vite proxy/database URL together.
+Stop terminal servers with Ctrl-C; `docker compose stop db` stops the database without deleting data. The initialization script bootstraps the initial schema if absent, then applies the repeatable additive ingestion and analytics migrations. Existing contract data is preserved; future migrations require review. Do not use `down -v` on data you need. If ports conflict, stop only your own processes or configure alternate ports and update the Vite proxy/database URL together.
 
 ## Configuration
 
@@ -51,6 +51,7 @@ Stop terminal servers with Ctrl-C; `docker compose stop db` stops the database w
 ## Design and next steps
 
 - [Architecture and folders](docs/architecture.md)
+- [Portfolio analytics and metric definitions](docs/analytics.md)
 - [Database schema and constraints](docs/schema.md)
 - [Datasets, labeling limitations and evaluation](docs/datasets.md)
 - [Phased implementation plan and acceptance gates](docs/plan.md)
@@ -77,3 +78,11 @@ Or use **Contract repository → Upload and extract** in the frontend. Inspect e
 - `POST /api/contracts`: multipart `file`, `contract_type`, optional `title` / `contract_id`.
 
 Upload constraints and extraction limitations are documented in [Phase 2 ingestion](docs/ingestion.md). OCR and human approval are not implemented. The database holds original bytes atomically with extracted records; no raw-document download endpoint is exposed. Back up the PostgreSQL volume to retain uploads; do not assume environment snapshots preserve an external Docker daemon's volumes.
+
+## Portfolio analytics
+
+Use **Portfolio analytics** to filter by agreement type, currency, review state and deadline window. The dashboard shows latest-version KPIs, interactive count charts, exact amount groups, agreement source links and recorded deadlines. Uploading a document refreshes the dashboard. No data is fabricated for empty portfolios. See [metric definitions and SQL design](docs/analytics.md) before interpreting amounts; they are stated terms, not estimates of exposure or losses.
+
+```bash
+curl --fail 'http://127.0.0.1:8000/api/analytics/overview?as_of=2026-03-01&contract_type=vendor'
+```

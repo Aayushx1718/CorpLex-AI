@@ -1,14 +1,14 @@
 # Architecture and scope
 
-The repository was empty (unborn `work` branch, no tracked files or remote refs) at inspection. Phase 1 established the foundation; Phase 2 adds deterministic ingestion, not completed analytics or AI.
+The repository was empty (unborn `work` branch, no tracked files or remote refs) at inspection. Phase 1 established the foundation; Phases 2–3 add deterministic ingestion and SQL-backed analytics, not completed analytics or AI.
 
 ## Components
 
 React + TypeScript + Tailwind → Vite `/api` proxy → FastAPI / Pydantic → SQLAlchemy / psycopg → PostgreSQL 17.
 
-The frontend calls a real API health endpoint. Liveness does not depend on PostgreSQL; readiness checks that PostgreSQL and the Phase 2 source table are available. Contract upload/list and source inspection endpoints are implemented. Recharts is reserved for Phase 3; no fabricated charts or KPIs appear now.
+The frontend calls a real API health endpoint. Liveness does not depend on PostgreSQL; readiness checks that PostgreSQL and the Phase 2 source table are available. Contract upload/list, source inspection and portfolio analytics endpoints are implemented. Recharts renders live type/kind counts; exact financial term groups use precision-preserving tables.
 
-Later phases add derived analytical SQL views, separately versioned ML artifacts, hybrid retrieval with FAISS or Chroma, and finally LangGraph orchestration. Install those dependencies only when their phase needs them. PostgreSQL remains the source of truth; vector indexes are rebuildable derived artifacts. Current uploads use synchronous request handlers with resource-bounded parser subprocesses. A durable background job queue is deferred until workloads require one.
+Later phases add separately versioned ML artifacts, hybrid retrieval with FAISS or Chroma, and finally LangGraph orchestration. Install those dependencies only when their phase needs them. PostgreSQL remains the source of truth; vector indexes are rebuildable derived artifacts. Current uploads use synchronous request handlers with resource-bounded parser subprocesses. A durable background job queue is deferred until workloads require one.
 
 ## Folder structure
 

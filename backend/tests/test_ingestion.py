@@ -1,47 +1,19 @@
 """Real PostgreSQL tests in a disposable schema, never in the application's tables.
 Run with TEST_DATABASE_URL set to a PostgreSQL SQLAlchemy URL.
 """
-import os
 from concurrent.futures import ThreadPoolExecutor
 from uuid import uuid4
 
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from sqlalchemy import create_engine, event, text
+from sqlalchemy import event, text
 from sqlalchemy.exc import SQLAlchemyError
-from pathlib import Path
 
 from app.routes import build_router
 from app.uploads import UploadLimitMiddleware
 from app.extraction import DOCX_MIME, MAX_FILE_BYTES
 from generate_samples import as_docx
-
-
-@pytest.fixture
-def db_engine():
-    url = os.getenv('TEST_DATABASE_URL')
-    if not url:
-        pytest.skip('TEST_DATABASE_URL is required for PostgreSQL integration tests')
-    schema = 'test_' + uuid4().hex
-    admin = create_engine(url)
-    with admin.begin() as conn:
-        conn.exec_driver_sql(f'CREATE SCHEMA {schema}')
-    engine = create_engine(url, connect_args={'options': f'-csearch_path={schema}'})
-    try:
-        raw = engine.raw_connection()
-        try:
-            with raw.cursor() as cursor:
-                for name in ['001_initial.sql', '002_ingestion.sql']:
-                    cursor.execute((Path(__file__).resolve().parents[2] / 'db' / name).read_text())
-        finally:
-            raw.close()
-        yield engine
-    finally:
-        engine.dispose()
-        with admin.begin() as conn:
-            conn.exec_driver_sql(f'DROP SCHEMA {schema} CASCADE')
-        admin.dispose()
 
 
 @pytest.fixture

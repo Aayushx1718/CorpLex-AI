@@ -1,6 +1,6 @@
 # PostgreSQL schema
 
-The executable definitions are `db/001_initial.sql` and the repeatable additive migration `db/002_ingestion.sql`. UUIDs identify domain entities; timestamps are UTC-aware. Money uses exact `numeric`, never binary floating point. Currency is explicit and totals must not combine currencies without a documented exchange-rate source and date.
+The executable definitions are `db/001_initial.sql` and the repeatable additive migrations `db/002_ingestion.sql` and `db/003_analytics.sql`. UUIDs identify domain entities; timestamps are UTC-aware. Money uses exact `numeric`, never binary floating point. Currency is explicit and totals must not combine currencies without a documented exchange-rate source and date.
 
 | Table | Responsibility / relationships |
 | --- | --- |
@@ -21,6 +21,6 @@ The executable definitions are `db/001_initial.sql` and the repeatable additive 
 
 Constraints enforce version/hash uniqueness, allowed states, positive ranges and valid amount/currency pairs. Indexes cover common joins and approved obligation deadlines. Future ETL must additionally validate source offsets, currency membership, citation quotations and scenario/source consistency transactionally; SQL constraints alone cannot prove extracted legal meaning. Cross-document duplicates require explicit linking rather than silently assigning one uploaded hash to two contracts.
 
-Phase 3 will define reviewed views for obligations by party/currency, upcoming renewals and model outcomes. Avoid many-to-many join multiplication by pre-aggregating obligations before joining parties. Window functions rank latest document versions; CTEs expose each aggregation stage. No analytical views or synthetic predictions are claimed implemented in Phase 1.
+Phase 3 adds latest-document, latest-obligation and aggregated-party views for the analytics API; see analytics.md. Model outcomes and inferred renewal deadlines are not included. Avoid many-to-many join multiplication by pre-aggregating obligations before joining parties. Window functions rank latest document versions; CTEs expose each aggregation stage. No synthetic predictions are seeded.
 
-This is a bootstrap schema plus one repeatable additive migration, not a general migration framework. The initialization script bootstraps when the contracts table is absent, then always applies the additive migration under an advisory lock. It preserves existing data. Introduce Alembic and an upgrade path before evolving a persisted database. Never delete a populated volume as an upgrade mechanism. Audit events need append-only database permissions and retention policies before deployment; the current table alone does not provide tamper resistance.
+This is a bootstrap schema plus repeatable additive migrations, not a general migration framework. The initialization script bootstraps when the contracts table is absent, then always applies the additive migration under an advisory lock. It preserves existing data. Introduce Alembic and an upgrade path before evolving a persisted database. Never delete a populated volume as an upgrade mechanism. Audit events need append-only database permissions and retention policies before deployment; the current table alone does not provide tamper resistance.
