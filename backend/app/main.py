@@ -8,6 +8,7 @@ from app.config import get_settings
 from app.routes import build_router
 from app.uploads import UploadLimitMiddleware
 from app.analytics import build_analytics_router
+from app.ml.routes import build_ml_router
 
 settings = get_settings()
 engine = create_engine(settings.database_url, pool_pre_ping=True, connect_args={"connect_timeout": 3})
@@ -28,6 +29,7 @@ app.add_middleware(
 app.add_middleware(UploadLimitMiddleware)
 app.include_router(build_router(engine))
 app.include_router(build_analytics_router(engine))
+app.include_router(build_ml_router(settings))
 
 
 class Health(BaseModel):

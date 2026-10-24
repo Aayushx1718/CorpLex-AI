@@ -1,21 +1,21 @@
 # Architecture and scope
 
-The repository was empty (unborn `work` branch, no tracked files or remote refs) at inspection. Phase 1 established the foundation; Phases 2–3 add deterministic ingestion and SQL-backed analytics, not completed analytics or AI.
+The repository was empty (unborn `work` branch, no tracked files or remote refs) at inspection. Phase 1 established the foundation; Phases 2–3 add deterministic ingestion and SQL-backed analytics, with ML training and later AI features still pending.
 
 ## Components
 
 React + TypeScript + Tailwind → Vite `/api` proxy → FastAPI / Pydantic → SQLAlchemy / psycopg → PostgreSQL 17.
 
-The frontend calls a real API health endpoint. Liveness does not depend on PostgreSQL; readiness checks that PostgreSQL and the Phase 2 source table are available. Contract upload/list, source inspection and portfolio analytics endpoints are implemented. Recharts renders live type/kind counts; exact financial term groups use precision-preserving tables.
+The frontend calls a real API health endpoint. Liveness does not depend on PostgreSQL; readiness checks that PostgreSQL and the Phase 3 analytics view are available. Contract upload/list, source inspection and portfolio analytics endpoints are implemented. Recharts renders live type/kind counts; exact financial term groups use precision-preserving tables.
 
-Later phases add separately versioned ML artifacts, hybrid retrieval with FAISS or Chroma, and finally LangGraph orchestration. Install those dependencies only when their phase needs them. PostgreSQL remains the source of truth; vector indexes are rebuildable derived artifacts. Current uploads use synchronous request handlers with resource-bounded parser subprocesses. A durable background job queue is deferred until workloads require one.
+Phase 4 preparation adds optional offline clause-type experiments and a trusted local artifact boundary; real-corpus training is gated on license verification. Later phases add hybrid retrieval with FAISS or Chroma, and finally LangGraph orchestration. No trained risk model is currently available. Install those dependencies only when their phase needs them. PostgreSQL remains the source of truth; vector indexes are rebuildable derived artifacts. Current uploads use synchronous request handlers with resource-bounded parser subprocesses. A durable background job queue is deferred until workloads require one.
 
 ## Folder structure
 
 - `backend/app/`: settings, API and subsequent domain services.
-- `backend/tests/`: API tests; later ETL and integration suites.
+- `backend/tests/`: API, extraction, PostgreSQL integration and gated ML tests.
 - `frontend/src/`: React workspace, styles and component tests.
-- `db/`: normalized bootstrap schema and additive Phase 2 migration, no seeded claims.
+- `db/`: normalized bootstrap schema and additive ingestion/analytics migrations, no seeded claims.
 - `samples/contracts/`: original synthetic demonstration contracts and provenance.
 - `docs/`: architecture, schema decisions, datasets and acceptance criteria.
 - `compose.yaml`: local PostgreSQL with persistent storage and health check.

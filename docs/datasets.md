@@ -1,6 +1,6 @@
 # Dataset and evaluation plan
 
-No external corpus has been downloaded and no model has been trained. Confirm the exact release license and usage restrictions before downloading, redistributing or training. Public availability alone is not permission.
+The official CUAD GitHub archive has been downloaded and checksum-verified; a five-category grouped adaptation is prepared locally. No real-corpus model has been trained. License evidence verification remains blocked by direct project/dataset-card network access. See ml/README.md. Confirm the exact release license and usage restrictions before downloading, redistributing or training. Public availability alone is not permission.
 
 | Candidate | Useful signal | Limitation |
 | --- | --- | --- |

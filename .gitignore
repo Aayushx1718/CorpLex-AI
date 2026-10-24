@@ -13,3 +13,6 @@ coverage/
 *.tsbuildinfo
 
 samples/generated/
+
+data/external/
+artifacts/

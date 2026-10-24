@@ -1,6 +1,6 @@
 # CorpLex AI
 
-Corporate contract intelligence and financial risk analytics. **Phase 3 analytics**: a working FastAPI service, React/TypeScript/Tailwind upload workspace, PostgreSQL storage, deterministic PDF/DOCX extraction, SQL-backed interactive analytics and original synthetic contracts. ML, RAG and agents remain planned. Decision-support information only; not legal advice.
+Corporate contract intelligence and financial risk analytics. **Phases 1–3 complete; Phase 4 ML preparation in progress**: a working FastAPI service, React/TypeScript/Tailwind upload workspace, PostgreSQL storage, deterministic PDF/DOCX extraction, SQL-backed interactive analytics and original synthetic contracts. The gated ML experiment pipeline is implemented, but real-corpus training awaits license verification. No trained business-risk model, RAG or agents are claimed. Decision-support information only; not legal advice.
 
 ## Run locally
 
@@ -8,7 +8,7 @@ Prerequisites: Python 3.12, uv, Node.js 24/npm, Docker with Compose v2. Commands
 
 ```bash
 cp -n .env.example .env
-UV_CACHE_DIR=/tmp/corplex-uv-cache uv sync --project backend --frozen
+UV_CACHE_DIR=/tmp/corplex-uv-cache uv sync --project backend --frozen --group ml
 npm ci --prefix frontend --cache /tmp/corplex-npm-cache
 docker compose up -d --wait db
 bash scripts/init-db.sh
@@ -51,6 +51,7 @@ Stop terminal servers with Ctrl-C; `docker compose stop db` stops the database w
 ## Design and next steps
 
 - [Architecture and folders](docs/architecture.md)
+- [ML preparation, license gate and experiment workflow](docs/ml/README.md)
 - [Portfolio analytics and metric definitions](docs/analytics.md)
 - [Database schema and constraints](docs/schema.md)
 - [Datasets, labeling limitations and evaluation](docs/datasets.md)
@@ -86,3 +87,9 @@ Use **Portfolio analytics** to filter by agreement type, currency, review state 
 ```bash
 curl --fail 'http://127.0.0.1:8000/api/analytics/overview?as_of=2026-03-01&contract_type=vendor'
 ```
+
+## ML preparation status
+
+The machine learning lab displays source provenance and real preparation counts for five CUAD clause categories. License verification is currently blocked by environment network access to the official project/dataset-card pages. No real-corpus experiment has run and no model scores or risk predictions are fabricated. See [the ML workflow](docs/ml/README.md) for the exact access prerequisite and commands to verify the license, train, evaluate and explicitly activate a reviewed clause-type artifact.
+
+Install the optional `ml` group to run all ML tests. Tests that fit synthetic fixtures are explicitly test-only; their models cannot be activated. Default installation without that group still supports ingestion and analytics, but skips optional ML tests.
