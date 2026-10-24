@@ -154,7 +154,9 @@ def verify_license(directory: Path, url: str) -> dict:
         content = response.read(2_000_000).decode('utf-8')
     import html
     plain = re.sub(r'\s+', ' ', html.unescape(re.sub('<[^>]+>', ' ', content)))
-    if not re.search(r'CUAD|Contract Understanding Atticus', plain, re.I) or not re.search(r'cc[ -]?by[ -]?4[.]0|Creative Commons Attribution 4[.]0', plain, re.I):
+    official_card = parsed.hostname == 'huggingface.co' and parsed.path == '/datasets/theatticusproject/cuad/raw/main/README.md'
+    identifies_cuad = official_card or bool(re.search(r'CUAD|Contract Understanding Atticus', plain, re.I))
+    if not identifies_cuad or not re.search(r'cc[ -]?by[ -]?4[.]0|Creative Commons Attribution 4[.]0', plain, re.I):
         raise ValueError('Page does not clearly identify CUAD and a CC-BY-4.0 license; manual license review is required.')
     manifest_path = directory / 'manifest.json'
     manifest = json.loads(manifest_path.read_text())

@@ -1,6 +1,6 @@
 # CorpLex AI
 
-Corporate contract intelligence and financial risk analytics. **Phases 1–3 complete; Phase 4 ML preparation in progress**: a working FastAPI service, React/TypeScript/Tailwind upload workspace, PostgreSQL storage, deterministic PDF/DOCX extraction, SQL-backed interactive analytics and original synthetic contracts. The gated ML experiment pipeline is implemented, but real-corpus training awaits license verification. No trained business-risk model, RAG or agents are claimed. Decision-support information only; not legal advice.
+Corporate contract intelligence and financial risk analytics. **Phases 1–3 complete; Phase 4 clause-type benchmark implemented**: a working FastAPI service, React/TypeScript/Tailwind upload workspace, PostgreSQL storage, deterministic PDF/DOCX extraction, SQL-backed interactive analytics and original synthetic contracts. A reviewed five-category CUAD clause-type classifier is trained and active in the current cloud environment. No trained business-risk model, RAG or agents are claimed. Decision-support information only; not legal advice.
 
 ## Run locally
 
@@ -88,8 +88,8 @@ Use **Portfolio analytics** to filter by agreement type, currency, review state 
 curl --fail 'http://127.0.0.1:8000/api/analytics/overview?as_of=2026-03-01&contract_type=vendor'
 ```
 
-## ML preparation status
+## Clause-type model status
 
-The machine learning lab displays source provenance and real preparation counts for five CUAD clause categories. License verification is currently blocked by environment network access to the official project/dataset-card pages. No real-corpus experiment has run and no model scores or risk predictions are fabricated. See [the ML workflow](docs/ml/README.md) for the exact access prerequisite and commands to verify the license, train, evaluate and explicitly activate a reviewed clause-type artifact.
+The machine learning lab displays real dataset provenance, held-out comparisons, per-class performance, confusion matrices and SHAP explanations. License verification succeeded using the official CUAD dataset card. Validation selected Logistic Regression; its test macro F1 is **0.9479 on 361 positive gold spans across five categories**. This is not a full-contract extraction score or a validated legal-risk model. See [the ML workflow and full experiment report](docs/ml/README.md).
 
-Install the optional `ml` group to run all ML tests. Tests that fit synthetic fixtures are explicitly test-only; their models cannot be activated. Default installation without that group still supports ingestion and analytics, but skips optional ML tests.
+The classifier is active in the current cloud filesystem. Raw data and trained pickle artifacts are excluded from Git; a fresh clone must fetch/prepare the pinned release, verify its license, train and review/activate an artifact using the documented commands. Install the optional `ml` group for these operations and the full ML test suite. Without the group, ingestion and analytics remain supported but optional ML tests skip.

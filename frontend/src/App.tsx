@@ -30,9 +30,9 @@ export default function App() {
       <p className="eyebrow">WORKSPACE</p><nav aria-label="Main navigation"><a className="active" href="#overview">Executive overview</a><a href="#analytics">Portfolio analytics</a><a href="#contracts">Contract repository</a><a href="#models">Machine learning lab</a><a href="#roadmap">Development roadmap</a></nav>
       <div className="aside-note">Built for clarity.<br/>Grounded in evidence.</div>
     </aside>
-    <main id="overview"><header><span>Corporate intelligence / Overview</span><span className="badge">Phase 4 · ML preparation</span></header>
+    <main id="overview"><header><span>Corporate intelligence / Overview</span><span className="badge">Phase 4 · Clause classification</span></header>
       <section className="hero"><p className="eyebrow">CONTRACT INTELLIGENCE</p><h1>Understand the agreement.<br/><span>See the exposure.</span></h1><p>A foundation for turning corporate contracts into structured, explainable decisions.</p></section>
-      <section className="status-grid" aria-label="Environment status"><div><span>Backend API</span><strong role="status">{status}</strong><small>Live health check</small></div><div><span>Contract data</span><strong>PDF / DOCX</strong><small>Upload and inspect source evidence</small></div><div><span>Model predictions</span><strong>Not trained</strong><small>No validated risk model yet</small></div></section>
+      <section className="status-grid" aria-label="Environment status"><div><span>Backend API</span><strong role="status">{status}</strong><small>Live health check</small></div><div><span>Contract data</span><strong>PDF / DOCX</strong><small>Upload and inspect source evidence</small></div><div><span>Business-risk model</span><strong>Not trained</strong><small>No validated risk model yet</small></div></section>
       <Suspense fallback={<p role="status">Loading analytics workspace…</p>}><AnalyticsDashboard refreshKey={refreshKey} onInspect={id => setInspectRequest(previous => ({ id, key: (previous?.key || 0) + 1 }))} /></Suspense>
       <ContractRepository inspectRequest={inspectRequest} onIngested={() => setRefreshKey(value => value + 1)} />
       <Suspense fallback={<p>Loading model lab…</p>}><ModelLab /></Suspense>

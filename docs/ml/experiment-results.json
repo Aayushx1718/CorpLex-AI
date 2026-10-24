@@ -1,0 +1,2053 @@
+{
+  "task": "clause_type",
+  "trained": true,
+  "deployable": true,
+  "validation_scope": "CUAD_positive_gold_spans_only",
+  "created_at": "2026-10-24T16:20:54.627794+00:00",
+  "dataset": {
+    "task": "clause_type",
+    "dataset": "CUADv1-five-category-adaptation",
+    "purpose": "public_benchmark",
+    "source_url": "https://github.com/TheAtticusProject/cuad/tree/67faa0e6023b04fcaae6cc09497ab00e5d63a2a2",
+    "source_commit": "67faa0e6023b04fcaae6cc09497ab00e5d63a2a2",
+    "archive_sha256": "f8161d18bea4e9c05e78fa6dda61c19c846fb8087ea969c172753bc2f45b999a",
+    "rows_sha256": "e747cf4d64b28dbfdb8ce6d15a80e737e7d1b25a6b02939cf01ea45a673a3b84",
+    "categories": [
+      "Anti-Assignment",
+      "Audit Rights",
+      "Cap On Liability",
+      "Non-Compete",
+      "Termination For Convenience"
+    ],
+    "citation": "Hendrycks, Burns, Chen and Ball (2021). CUAD: An Expert-Annotated NLP Dataset for Legal Contract Review. https://arxiv.org/abs/2103.06268",
+    "license": {
+      "name": "CC-BY-4.0",
+      "verified": true,
+      "evidence_url": "https://huggingface.co/datasets/theatticusproject/cuad/raw/main/README.md",
+      "evidence_sha256": "835f3f7d88a86e05a882c6a6b6333da6ab874776385f85473798769d767c2fca",
+      "checked_at": "2026-10-24T16:20:44.089838+00:00"
+    },
+    "counts": {
+      "train": {
+        "Cap On Liability": 386,
+        "Audit Rights": 394,
+        "Anti-Assignment": 396,
+        "Termination For Convenience": 131,
+        "Non-Compete": 147
+      },
+      "validation": {
+        "Cap On Liability": 93,
+        "Anti-Assignment": 78,
+        "Termination For Convenience": 45,
+        "Audit Rights": 100,
+        "Non-Compete": 62
+      },
+      "calibration": {
+        "Non-Compete": 22,
+        "Cap On Liability": 60,
+        "Anti-Assignment": 54,
+        "Audit Rights": 48,
+        "Termination For Convenience": 25
+      },
+      "test": {
+        "Cap On Liability": 127,
+        "Audit Rights": 89,
+        "Anti-Assignment": 92,
+        "Non-Compete": 21,
+        "Termination For Convenience": 32
+      }
+    },
+    "groups": {
+      "cluster-0": 12,
+      "cluster-1": 6,
+      "cluster-2": 30,
+      "cluster-3": 12,
+      "cluster-4": 5,
+      "cluster-5": 11,
+      "cluster-6": 3,
+      "cluster-7": 5,
+      "cluster-8": 9,
+      "cluster-9": 5,
+      "cluster-10": 8,
+      "cluster-11": 9,
+      "cluster-12": 8,
+      "cluster-13": 13,
+      "cluster-14": 23,
+      "cluster-15": 9,
+      "cluster-16": 8,
+      "cluster-17": 10,
+      "cluster-18": 4,
+      "cluster-19": 5,
+      "cluster-20": 29,
+      "cluster-21": 25,
+      "cluster-22": 66,
+      "cluster-23": 1,
+      "cluster-24": 16,
+      "cluster-25": 10,
+      "cluster-26": 4,
+      "cluster-27": 2,
+      "cluster-28": 15,
+      "cluster-29": 10,
+      "cluster-30": 3,
+      "cluster-32": 31,
+      "cluster-33": 2,
+      "cluster-34": 22,
+      "cluster-35": 9,
+      "cluster-36": 14,
+      "cluster-37": 5,
+      "cluster-39": 25,
+      "cluster-40": 9,
+      "cluster-43": 5,
+      "cluster-45": 5,
+      "cluster-46": 12,
+      "cluster-47": 8,
+      "cluster-48": 3,
+      "cluster-49": 19,
+      "cluster-50": 4,
+      "cluster-51": 12,
+      "cluster-52": 11,
+      "cluster-53": 12,
+      "cluster-54": 10,
+      "cluster-55": 25,
+      "cluster-56": 4,
+      "cluster-58": 12,
+      "cluster-59": 9,
+      "cluster-60": 7,
+      "cluster-61": 12,
+      "cluster-62": 18,
+      "cluster-63": 1,
+      "cluster-64": 7,
+      "cluster-65": 5,
+      "cluster-66": 13,
+      "cluster-68": 15,
+      "cluster-71": 10,
+      "cluster-72": 6,
+      "cluster-73": 9,
+      "cluster-74": 5,
+      "cluster-75": 8,
+      "cluster-76": 2,
+      "cluster-80": 12,
+      "cluster-81": 3,
+      "cluster-82": 6,
+      "cluster-84": 3,
+      "cluster-85": 9,
+      "cluster-86": 18,
+      "cluster-87": 1,
+      "cluster-88": 7,
+      "cluster-91": 5,
+      "cluster-93": 43,
+      "cluster-94": 16,
+      "cluster-96": 5,
+      "cluster-97": 6,
+      "cluster-98": 4,
+      "cluster-100": 16,
+      "cluster-102": 14,
+      "cluster-103": 18,
+      "cluster-107": 2,
+      "cluster-109": 6,
+      "cluster-110": 3,
+      "cluster-111": 1,
+      "cluster-112": 30,
+      "cluster-114": 13,
+      "cluster-115": 7,
+      "cluster-116": 3,
+      "cluster-118": 10,
+      "cluster-121": 14,
+      "cluster-123": 7,
+      "cluster-124": 13,
+      "cluster-125": 7,
+      "cluster-128": 14,
+      "cluster-129": 12,
+      "cluster-130": 7,
+      "cluster-131": 16,
+      "cluster-135": 6,
+      "cluster-136": 1,
+      "cluster-137": 6,
+      "cluster-138": 18,
+      "cluster-140": 8,
+      "cluster-142": 16,
+      "cluster-146": 9,
+      "cluster-151": 8,
+      "cluster-152": 5,
+      "cluster-159": 10,
+      "cluster-161": 7,
+      "cluster-162": 12,
+      "cluster-165": 4,
+      "cluster-166": 12,
+      "cluster-167": 5,
+      "cluster-169": 3,
+      "cluster-170": 14,
+      "cluster-171": 3,
+      "cluster-172": 13,
+      "cluster-173": 16,
+      "cluster-174": 6,
+      "cluster-179": 3,
+      "cluster-180": 4,
+      "cluster-182": 8,
+      "cluster-184": 14,
+      "cluster-186": 10,
+      "cluster-188": 12,
+      "cluster-192": 7,
+      "cluster-193": 9,
+      "cluster-195": 3,
+      "cluster-196": 7,
+      "cluster-198": 4,
+      "cluster-202": 10,
+      "cluster-203": 3,
+      "cluster-204": 18,
+      "cluster-207": 4,
+      "cluster-208": 5,
+      "cluster-209": 4,
+      "cluster-210": 2,
+      "cluster-213": 3,
+      "cluster-217": 6,
+      "cluster-220": 9,
+      "cluster-221": 5,
+      "cluster-223": 8,
+      "cluster-225": 4,
+      "cluster-226": 9,
+      "cluster-227": 9,
+      "cluster-230": 4,
+      "cluster-233": 4,
+      "cluster-234": 3,
+      "cluster-235": 7,
+      "cluster-237": 6,
+      "cluster-238": 2,
+      "cluster-239": 6,
+      "cluster-241": 6,
+      "cluster-242": 8,
+      "cluster-248": 12,
+      "cluster-252": 5,
+      "cluster-253": 4,
+      "cluster-254": 3,
+      "cluster-256": 6,
+      "cluster-258": 1,
+      "cluster-259": 12,
+      "cluster-264": 5,
+      "cluster-267": 11,
+      "cluster-269": 4,
+      "cluster-270": 6,
+      "cluster-275": 4,
+      "cluster-282": 4,
+      "cluster-284": 1,
+      "cluster-285": 4,
+      "cluster-287": 8,
+      "cluster-288": 3,
+      "cluster-289": 2,
+      "cluster-293": 7,
+      "cluster-296": 26,
+      "cluster-298": 9,
+      "cluster-300": 9,
+      "cluster-306": 4,
+      "cluster-310": 4,
+      "cluster-311": 5,
+      "cluster-317": 5,
+      "cluster-322": 3,
+      "cluster-323": 2,
+      "cluster-324": 7,
+      "cluster-327": 4,
+      "cluster-328": 12,
+      "cluster-330": 14,
+      "cluster-332": 5,
+      "cluster-334": 1,
+      "cluster-338": 21,
+      "cluster-339": 5,
+      "cluster-343": 5,
+      "cluster-347": 4,
+      "cluster-348": 7,
+      "cluster-349": 7,
+      "cluster-373": 3,
+      "cluster-386": 2,
+      "cluster-389": 6,
+      "cluster-392": 7,
+      "cluster-394": 6,
+      "cluster-403": 3,
+      "cluster-405": 9,
+      "cluster-408": 3,
+      "cluster-409": 2,
+      "cluster-410": 9,
+      "cluster-412": 5,
+      "cluster-415": 2,
+      "cluster-417": 4,
+      "cluster-419": 6,
+      "cluster-425": 2,
+      "cluster-426": 7,
+      "cluster-429": 6,
+      "cluster-432": 3,
+      "cluster-434": 3,
+      "cluster-436": 9,
+      "cluster-437": 4,
+      "cluster-440": 2,
+      "cluster-441": 5,
+      "cluster-446": 10,
+      "cluster-447": 10,
+      "cluster-452": 6,
+      "cluster-454": 1,
+      "cluster-458": 5,
+      "cluster-463": 5,
+      "cluster-465": 9,
+      "cluster-466": 5,
+      "cluster-475": 3,
+      "cluster-477": 2,
+      "cluster-478": 3,
+      "cluster-490": 6,
+      "cluster-491": 4,
+      "cluster-493": 9,
+      "cluster-494": 2,
+      "cluster-495": 3,
+      "cluster-498": 6,
+      "cluster-499": 1,
+      "cluster-501": 5,
+      "cluster-505": 4,
+      "cluster-509": 2,
+      "cluster-510": 4,
+      "cluster-511": 5,
+      "cluster-514": 3,
+      "cluster-519": 5,
+      "cluster-528": 3,
+      "cluster-529": 2,
+      "cluster-531": 6,
+      "cluster-537": 8,
+      "cluster-563": 2,
+      "cluster-576": 1,
+      "cluster-585": 3,
+      "cluster-586": 2,
+      "cluster-593": 4,
+      "cluster-597": 6,
+      "cluster-604": 1,
+      "cluster-611": 4,
+      "cluster-614": 9,
+      "cluster-615": 3,
+      "cluster-616": 4,
+      "cluster-617": 1,
+      "cluster-624": 13,
+      "cluster-628": 2,
+      "cluster-631": 6,
+      "cluster-636": 2,
+      "cluster-640": 2,
+      "cluster-650": 2,
+      "cluster-654": 4,
+      "cluster-660": 1,
+      "cluster-661": 7,
+      "cluster-669": 4,
+      "cluster-678": 2,
+      "cluster-687": 4,
+      "cluster-690": 3,
+      "cluster-692": 2,
+      "cluster-693": 2,
+      "cluster-700": 5,
+      "cluster-703": 2,
+      "cluster-717": 2,
+      "cluster-751": 7,
+      "cluster-757": 3,
+      "cluster-760": 6,
+      "cluster-764": 3,
+      "cluster-767": 2,
+      "cluster-771": 3,
+      "cluster-787": 8,
+      "cluster-789": 2,
+      "cluster-793": 3,
+      "cluster-802": 5,
+      "cluster-805": 3,
+      "cluster-815": 4,
+      "cluster-823": 4,
+      "cluster-855": 4,
+      "cluster-857": 2,
+      "cluster-863": 3,
+      "cluster-870": 5,
+      "cluster-871": 1,
+      "cluster-872": 2,
+      "cluster-875": 4,
+      "cluster-898": 2,
+      "cluster-901": 3,
+      "cluster-902": 3,
+      "cluster-928": 5,
+      "cluster-930": 4,
+      "cluster-938": 4,
+      "cluster-942": 3,
+      "cluster-947": 2,
+      "cluster-967": 3,
+      "cluster-976": 3,
+      "cluster-977": 4,
+      "cluster-981": 2,
+      "cluster-986": 1,
+      "cluster-989": 1,
+      "cluster-1001": 6,
+      "cluster-1008": 5,
+      "cluster-1020": 4,
+      "cluster-1025": 2,
+      "cluster-1033": 1,
+      "cluster-1039": 1,
+      "cluster-1052": 5,
+      "cluster-1075": 3,
+      "cluster-1077": 4,
+      "cluster-1080": 1,
+      "cluster-1083": 1,
+      "cluster-1085": 4,
+      "cluster-1087": 6,
+      "cluster-1107": 3,
+      "cluster-1119": 1,
+      "cluster-1129": 4,
+      "cluster-1150": 1,
+      "cluster-1154": 1,
+      "cluster-1159": 5,
+      "cluster-1160": 6,
+      "cluster-1167": 3,
+      "cluster-1173": 4,
+      "cluster-1175": 4,
+      "cluster-1181": 2,
+      "cluster-1196": 1,
+      "cluster-1259": 2,
+      "cluster-1261": 3,
+      "cluster-1268": 1,
+      "cluster-1286": 2,
+      "cluster-1306": 2,
+      "cluster-1328": 1,
+      "cluster-1335": 2,
+      "cluster-1341": 5,
+      "cluster-1345": 1,
+      "cluster-1388": 2,
+      "cluster-1397": 1,
+      "cluster-1406": 5,
+      "cluster-1407": 2,
+      "cluster-1434": 1,
+      "cluster-1436": 1,
+      "cluster-1437": 3,
+      "cluster-1438": 2,
+      "cluster-1441": 1,
+      "cluster-1553": 3,
+      "cluster-1574": 3,
+      "cluster-1629": 1,
+      "cluster-1668": 2,
+      "cluster-1697": 7,
+      "cluster-1724": 2,
+      "cluster-1741": 2,
+      "cluster-1787": 1,
+      "cluster-1798": 3,
+      "cluster-1845": 1,
+      "cluster-1963": 1,
+      "cluster-2027": 1,
+      "cluster-2070": 1,
+      "cluster-2099": 1,
+      "cluster-2105": 2,
+      "cluster-2106": 3,
+      "cluster-2179": 3,
+      "cluster-2196": 1,
+      "cluster-2240": 1,
+      "cluster-2267": 2
+    },
+    "exclusions": {
+      "invalid_source_spans": 0,
+      "short_spans": 62,
+      "ambiguous_label_rows": 8,
+      "duplicate_within_document_rows": 2
+    },
+    "near_duplicate_cosine_threshold": 0.92,
+    "split_seed": [
+      42,
+      43,
+      44
+    ],
+    "limitations": [
+      "Positive gold spans only; not full-contract extraction or business-risk severity.",
+      "Custom grouped splits are not the official CUAD benchmark.",
+      "Issuer grouping is filename-derived and lexical clustering cannot prove absence of all leakage."
+    ]
+  },
+  "split_sizes": {
+    "train": 1454,
+    "validation": 378,
+    "calibration": 209,
+    "test": 361
+  },
+  "selection_rule": "Highest validation macro F1; fixed configurations; ties retain model order.",
+  "selected_model": "logistic_regression",
+  "comparisons": {
+    "logistic_regression": {
+      "parameters": {
+        "C": 1.0,
+        "class_weight": "balanced",
+        "dual": false,
+        "fit_intercept": true,
+        "intercept_scaling": 1,
+        "l1_ratio": 0.0,
+        "max_iter": 1000,
+        "n_jobs": null,
+        "penalty": "deprecated",
+        "random_state": 42,
+        "solver": "lbfgs",
+        "tol": 0.0001,
+        "verbose": 0,
+        "warm_start": false
+      },
+      "temperature": 0.3769152183461792,
+      "validation": {
+        "accuracy": 0.9656084656084656,
+        "macro_f1": 0.9606497705221779,
+        "per_class": [
+          {
+            "label": "Anti-Assignment",
+            "precision": 0.961038961038961,
+            "recall": 0.9487179487179487,
+            "f1": 0.9548387096774194,
+            "support": 78
+          },
+          {
+            "label": "Audit Rights",
+            "precision": 0.9611650485436893,
+            "recall": 0.99,
+            "f1": 0.9753694581280788,
+            "support": 100
+          },
+          {
+            "label": "Cap On Liability",
+            "precision": 0.9893617021276596,
+            "recall": 1.0,
+            "f1": 0.9946524064171123,
+            "support": 93
+          },
+          {
+            "label": "Non-Compete",
+            "precision": 0.9655172413793104,
+            "recall": 0.9032258064516129,
+            "f1": 0.9333333333333333,
+            "support": 62
+          },
+          {
+            "label": "Termination For Convenience",
+            "precision": 0.9347826086956522,
+            "recall": 0.9555555555555556,
+            "f1": 0.945054945054945,
+            "support": 45
+          }
+        ],
+        "confusion_matrix": [
+          [
+            74,
+            2,
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            99,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            93,
+            0,
+            0
+          ],
+          [
+            2,
+            1,
+            0,
+            56,
+            3
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            43
+          ]
+        ],
+        "log_loss": 0.37982963259153274,
+        "multiclass_brier": 0.15149150853664356,
+        "expected_calibration_error": 0.2342762546567967,
+        "reliability_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.30000000000000004,
+            "count": 8,
+            "confidence": 0.2734055103045382,
+            "accuracy": 0.25
+          },
+          {
+            "lower": 0.30000000000000004,
+            "upper": 0.4,
+            "count": 17,
+            "confidence": 0.35379353277489795,
+            "accuracy": 0.8823529411764706
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 28,
+            "confidence": 0.45644075278256885,
+            "accuracy": 0.9285714285714286
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 42,
+            "confidence": 0.5503437395508909,
+            "accuracy": 0.9523809523809523
+          },
+          {
+            "lower": 0.6000000000000001,
+            "upper": 0.7000000000000001,
+            "count": 50,
+            "confidence": 0.6523822106040064,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.7000000000000001,
+            "upper": 0.8,
+            "count": 59,
+            "confidence": 0.7566087652070592,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 86,
+            "confidence": 0.8457401076715233,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "count": 88,
+            "confidence": 0.9401008487360992,
+            "accuracy": 0.9886363636363636
+          }
+        ],
+        "review_threshold": 0.65,
+        "threshold_coverage": 0.6825396825396826,
+        "threshold_accuracy": 0.9961240310077519
+      },
+      "test_raw": {
+        "accuracy": 0.961218836565097,
+        "macro_f1": 0.9478854027140766,
+        "per_class": [
+          {
+            "label": "Anti-Assignment",
+            "precision": 1.0,
+            "recall": 0.9239130434782609,
+            "f1": 0.96045197740113,
+            "support": 92
+          },
+          {
+            "label": "Audit Rights",
+            "precision": 0.9662921348314607,
+            "recall": 0.9662921348314607,
+            "f1": 0.9662921348314607,
+            "support": 89
+          },
+          {
+            "label": "Cap On Liability",
+            "precision": 0.9689922480620154,
+            "recall": 0.984251968503937,
+            "f1": 0.9765625,
+            "support": 127
+          },
+          {
+            "label": "Non-Compete",
+            "precision": 0.84,
+            "recall": 1.0,
+            "f1": 0.9130434782608695,
+            "support": 21
+          },
+          {
+            "label": "Termination For Convenience",
+            "precision": 0.9090909090909091,
+            "recall": 0.9375,
+            "f1": 0.9230769230769231,
+            "support": 32
+          }
+        ],
+        "confusion_matrix": [
+          [
+            85,
+            2,
+            2,
+            1,
+            2
+          ],
+          [
+            0,
+            86,
+            1,
+            2,
+            0
+          ],
+          [
+            0,
+            1,
+            125,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            21,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            30
+          ]
+        ],
+        "log_loss": 0.3664779885200243,
+        "multiclass_brier": 0.1448796429886899,
+        "expected_calibration_error": 0.22323515695610396,
+        "reliability_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.30000000000000004,
+            "count": 5,
+            "confidence": 0.2765618411936316,
+            "accuracy": 0.6
+          },
+          {
+            "lower": 0.30000000000000004,
+            "upper": 0.4,
+            "count": 20,
+            "confidence": 0.3489987286817339,
+            "accuracy": 0.5
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 28,
+            "confidence": 0.4471558103880934,
+            "accuracy": 0.9285714285714286
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 32,
+            "confidence": 0.5581399591583205,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.6000000000000001,
+            "upper": 0.7000000000000001,
+            "count": 48,
+            "confidence": 0.6620927030613586,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.7000000000000001,
+            "upper": 0.8,
+            "count": 61,
+            "confidence": 0.7526940576913331,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 85,
+            "confidence": 0.8553937293292623,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "count": 82,
+            "confidence": 0.9422588892220358,
+            "accuracy": 1.0
+          }
+        ],
+        "review_threshold": 0.65,
+        "threshold_coverage": 0.7174515235457064,
+        "threshold_accuracy": 1.0
+      },
+      "test_calibrated": {
+        "accuracy": 0.961218836565097,
+        "macro_f1": 0.9478854027140766,
+        "per_class": [
+          {
+            "label": "Anti-Assignment",
+            "precision": 1.0,
+            "recall": 0.9239130434782609,
+            "f1": 0.96045197740113,
+            "support": 92
+          },
+          {
+            "label": "Audit Rights",
+            "precision": 0.9662921348314607,
+            "recall": 0.9662921348314607,
+            "f1": 0.9662921348314607,
+            "support": 89
+          },
+          {
+            "label": "Cap On Liability",
+            "precision": 0.9689922480620154,
+            "recall": 0.984251968503937,
+            "f1": 0.9765625,
+            "support": 127
+          },
+          {
+            "label": "Non-Compete",
+            "precision": 0.84,
+            "recall": 1.0,
+            "f1": 0.9130434782608695,
+            "support": 21
+          },
+          {
+            "label": "Termination For Convenience",
+            "precision": 0.9090909090909091,
+            "recall": 0.9375,
+            "f1": 0.9230769230769231,
+            "support": 32
+          }
+        ],
+        "confusion_matrix": [
+          [
+            85,
+            2,
+            2,
+            1,
+            2
+          ],
+          [
+            0,
+            86,
+            1,
+            2,
+            0
+          ],
+          [
+            0,
+            1,
+            125,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            21,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            30
+          ]
+        ],
+        "log_loss": 0.13429411408976547,
+        "multiclass_brier": 0.06004206541706953,
+        "expected_calibration_error": 0.034358300203497526,
+        "reliability_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.30000000000000004,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.30000000000000004,
+            "upper": 0.4,
+            "count": 3,
+            "confidence": 0.36712131127838793,
+            "accuracy": 0.6666666666666666
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 7,
+            "confidence": 0.43805126466791755,
+            "accuracy": 0.5714285714285714
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 8,
+            "confidence": 0.5470354022758426,
+            "accuracy": 0.25
+          },
+          {
+            "lower": 0.6000000000000001,
+            "upper": 0.7000000000000001,
+            "count": 9,
+            "confidence": 0.6730435842610153,
+            "accuracy": 0.7777777777777778
+          },
+          {
+            "lower": 0.7000000000000001,
+            "upper": 0.8,
+            "count": 14,
+            "confidence": 0.7583310361273335,
+            "accuracy": 0.8571428571428571
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 17,
+            "confidence": 0.8515533040970956,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "count": 303,
+            "confidence": 0.9889596736780565,
+            "accuracy": 1.0
+          }
+        ],
+        "review_threshold": 0.65,
+        "threshold_coverage": 0.9445983379501385,
+        "threshold_accuracy": 0.9882697947214076
+      },
+      "confidence_interval": {
+        "available": true,
+        "unit": "duplicate/issuer group",
+        "resamples": 100,
+        "macro_f1_95_percent": [
+          0.9183110530400682,
+          0.9785958361025304
+        ]
+      }
+    },
+    "random_forest": {
+      "parameters": {
+        "bootstrap": true,
+        "ccp_alpha": 0.0,
+        "class_weight": "balanced",
+        "criterion": "gini",
+        "max_depth": 24,
+        "max_features": "sqrt",
+        "max_leaf_nodes": null,
+        "max_samples": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 1,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "monotonic_cst": null,
+        "n_estimators": 200,
+        "n_jobs": 2,
+        "oob_score": false,
+        "random_state": 42,
+        "verbose": 0,
+        "warm_start": false
+      },
+      "temperature": 0.3175179584788857,
+      "validation": {
+        "accuracy": 0.9365079365079365,
+        "macro_f1": 0.9314694205553385,
+        "per_class": [
+          {
+            "label": "Anti-Assignment",
+            "precision": 0.9113924050632911,
+            "recall": 0.9230769230769231,
+            "f1": 0.9171974522292994,
+            "support": 78
+          },
+          {
+            "label": "Audit Rights",
+            "precision": 0.941747572815534,
+            "recall": 0.97,
+            "f1": 0.9556650246305419,
+            "support": 100
+          },
+          {
+            "label": "Cap On Liability",
+            "precision": 0.9680851063829787,
+            "recall": 0.978494623655914,
+            "f1": 0.9732620320855615,
+            "support": 93
+          },
+          {
+            "label": "Non-Compete",
+            "precision": 0.9090909090909091,
+            "recall": 0.8064516129032258,
+            "f1": 0.8547008547008547,
+            "support": 62
+          },
+          {
+            "label": "Termination For Convenience",
+            "precision": 0.9361702127659575,
+            "recall": 0.9777777777777777,
+            "f1": 0.9565217391304348,
+            "support": 45
+          }
+        ],
+        "confusion_matrix": [
+          [
+            72,
+            2,
+            1,
+            3,
+            0
+          ],
+          [
+            0,
+            97,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            91,
+            1,
+            0
+          ],
+          [
+            7,
+            2,
+            1,
+            50,
+            2
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            44
+          ]
+        ],
+        "log_loss": 0.47627272435924195,
+        "multiclass_brier": 0.21034188510424318,
+        "expected_calibration_error": 0.25942134391531163,
+        "reliability_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.30000000000000004,
+            "count": 5,
+            "confidence": 0.28179270904593967,
+            "accuracy": 0.2
+          },
+          {
+            "lower": 0.30000000000000004,
+            "upper": 0.4,
+            "count": 34,
+            "confidence": 0.3493273635847329,
+            "accuracy": 0.7647058823529411
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 43,
+            "confidence": 0.45477486773948256,
+            "accuracy": 0.9069767441860465
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 48,
+            "confidence": 0.5547469939476827,
+            "accuracy": 0.8541666666666666
+          },
+          {
+            "lower": 0.6000000000000001,
+            "upper": 0.7000000000000001,
+            "count": 71,
+            "confidence": 0.6482647608902583,
+            "accuracy": 0.9859154929577465
+          },
+          {
+            "lower": 0.7000000000000001,
+            "upper": 0.8,
+            "count": 63,
+            "confidence": 0.7505335622675444,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 45,
+            "confidence": 0.8589309699243177,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "count": 69,
+            "confidence": 0.9467403488176307,
+            "accuracy": 1.0
+          }
+        ],
+        "review_threshold": 0.65,
+        "threshold_coverage": 0.5582010582010583,
+        "threshold_accuracy": 0.995260663507109
+      },
+      "test_raw": {
+        "accuracy": 0.9279778393351801,
+        "macro_f1": 0.9026603948993774,
+        "per_class": [
+          {
+            "label": "Anti-Assignment",
+            "precision": 0.9651162790697675,
+            "recall": 0.9021739130434783,
+            "f1": 0.9325842696629213,
+            "support": 92
+          },
+          {
+            "label": "Audit Rights",
+            "precision": 0.8958333333333334,
+            "recall": 0.9662921348314607,
+            "f1": 0.9297297297297298,
+            "support": 89
+          },
+          {
+            "label": "Cap On Liability",
+            "precision": 0.9833333333333333,
+            "recall": 0.9291338582677166,
+            "f1": 0.9554655870445344,
+            "support": 127
+          },
+          {
+            "label": "Non-Compete",
+            "precision": 0.75,
+            "recall": 0.8571428571428571,
+            "f1": 0.8,
+            "support": 21
+          },
+          {
+            "label": "Termination For Convenience",
+            "precision": 0.8571428571428571,
+            "recall": 0.9375,
+            "f1": 0.8955223880597015,
+            "support": 32
+          }
+        ],
+        "confusion_matrix": [
+          [
+            83,
+            1,
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            86,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            6,
+            118,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            0,
+            18,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            1,
+            30
+          ]
+        ],
+        "log_loss": 0.45490787538722766,
+        "multiclass_brier": 0.19647545568376426,
+        "expected_calibration_error": 0.24028895507509904,
+        "reliability_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.30000000000000004,
+            "count": 5,
+            "confidence": 0.2823519672923026,
+            "accuracy": 0.2
+          },
+          {
+            "lower": 0.30000000000000004,
+            "upper": 0.4,
+            "count": 28,
+            "confidence": 0.3462713044955845,
+            "accuracy": 0.5
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 34,
+            "confidence": 0.44538908379144404,
+            "accuracy": 0.7941176470588235
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 53,
+            "confidence": 0.5492161692543055,
+            "accuracy": 0.9811320754716981
+          },
+          {
+            "lower": 0.6000000000000001,
+            "upper": 0.7000000000000001,
+            "count": 62,
+            "confidence": 0.6455523825092643,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.7000000000000001,
+            "upper": 0.8,
+            "count": 55,
+            "confidence": 0.7432765682630913,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 53,
+            "confidence": 0.8581552059912653,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "count": 71,
+            "confidence": 0.9483588707254315,
+            "accuracy": 1.0
+          }
+        ],
+        "review_threshold": 0.65,
+        "threshold_coverage": 0.5734072022160664,
+        "threshold_accuracy": 1.0
+      },
+      "test_calibrated": {
+        "accuracy": 0.9279778393351801,
+        "macro_f1": 0.9026603948993774,
+        "per_class": [
+          {
+            "label": "Anti-Assignment",
+            "precision": 0.9651162790697675,
+            "recall": 0.9021739130434783,
+            "f1": 0.9325842696629213,
+            "support": 92
+          },
+          {
+            "label": "Audit Rights",
+            "precision": 0.8958333333333334,
+            "recall": 0.9662921348314607,
+            "f1": 0.9297297297297298,
+            "support": 89
+          },
+          {
+            "label": "Cap On Liability",
+            "precision": 0.9833333333333333,
+            "recall": 0.9291338582677166,
+            "f1": 0.9554655870445344,
+            "support": 127
+          },
+          {
+            "label": "Non-Compete",
+            "precision": 0.75,
+            "recall": 0.8571428571428571,
+            "f1": 0.8,
+            "support": 21
+          },
+          {
+            "label": "Termination For Convenience",
+            "precision": 0.8571428571428571,
+            "recall": 0.9375,
+            "f1": 0.8955223880597015,
+            "support": 32
+          }
+        ],
+        "confusion_matrix": [
+          [
+            83,
+            1,
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            86,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            6,
+            118,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            0,
+            18,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            1,
+            30
+          ]
+        ],
+        "log_loss": 0.2025865710484061,
+        "multiclass_brier": 0.09321456515402261,
+        "expected_calibration_error": 0.030832792065313603,
+        "reliability_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.30000000000000004,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.30000000000000004,
+            "upper": 0.4,
+            "count": 2,
+            "confidence": 0.328681762547148,
+            "accuracy": 0.5
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 11,
+            "confidence": 0.4537592244297693,
+            "accuracy": 0.2727272727272727
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 7,
+            "confidence": 0.547672824019055,
+            "accuracy": 0.42857142857142855
+          },
+          {
+            "lower": 0.6000000000000001,
+            "upper": 0.7000000000000001,
+            "count": 11,
+            "confidence": 0.6484643302785101,
+            "accuracy": 0.45454545454545453
+          },
+          {
+            "lower": 0.7000000000000001,
+            "upper": 0.8,
+            "count": 17,
+            "confidence": 0.7727133538227455,
+            "accuracy": 0.7058823529411765
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 17,
+            "confidence": 0.8549609694418203,
+            "accuracy": 0.8823529411764706
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "count": 296,
+            "confidence": 0.9857160741342151,
+            "accuracy": 1.0
+          }
+        ],
+        "review_threshold": 0.65,
+        "threshold_coverage": 0.9307479224376731,
+        "threshold_accuracy": 0.9702380952380952
+      },
+      "confidence_interval": {
+        "available": true,
+        "unit": "duplicate/issuer group",
+        "resamples": 100,
+        "macro_f1_95_percent": [
+          0.8631839953597442,
+          0.9349917419243836
+        ]
+      }
+    },
+    "xgboost": {
+      "parameters": {
+        "objective": "multi:softprob",
+        "base_score": null,
+        "booster": null,
+        "callbacks": null,
+        "colsample_bylevel": null,
+        "colsample_bynode": null,
+        "colsample_bytree": 0.8,
+        "device": null,
+        "early_stopping_rounds": null,
+        "enable_categorical": true,
+        "eval_metric": "mlogloss",
+        "feature_types": null,
+        "feature_weights": null,
+        "gamma": null,
+        "grow_policy": null,
+        "importance_type": null,
+        "interaction_constraints": null,
+        "learning_rate": 0.08,
+        "max_bin": null,
+        "max_cat_threshold": null,
+        "max_cat_to_onehot": null,
+        "max_delta_step": null,
+        "max_depth": 4,
+        "max_leaves": null,
+        "min_child_weight": null,
+        "missing": "nan",
+        "monotone_constraints": null,
+        "multi_strategy": null,
+        "n_estimators": 200,
+        "n_jobs": 2,
+        "num_parallel_tree": null,
+        "random_state": 42,
+        "reg_alpha": null,
+        "reg_lambda": null,
+        "sampling_method": null,
+        "scale_pos_weight": null,
+        "subsample": 0.9,
+        "tree_method": "hist",
+        "validate_parameters": null,
+        "verbosity": null,
+        "num_class": 5
+      },
+      "temperature": 1.1222618736414225,
+      "validation": {
+        "accuracy": 0.9312169312169312,
+        "macro_f1": 0.9267826962834814,
+        "per_class": [
+          {
+            "label": "Anti-Assignment",
+            "precision": 0.9240506329113924,
+            "recall": 0.9358974358974359,
+            "f1": 0.9299363057324841,
+            "support": 78
+          },
+          {
+            "label": "Audit Rights",
+            "precision": 0.9494949494949495,
+            "recall": 0.94,
+            "f1": 0.9447236180904522,
+            "support": 100
+          },
+          {
+            "label": "Cap On Liability",
+            "precision": 0.92,
+            "recall": 0.989247311827957,
+            "f1": 0.9533678756476683,
+            "support": 93
+          },
+          {
+            "label": "Non-Compete",
+            "precision": 0.9423076923076923,
+            "recall": 0.7903225806451613,
+            "f1": 0.8596491228070176,
+            "support": 62
+          },
+          {
+            "label": "Termination For Convenience",
+            "precision": 0.9166666666666666,
+            "recall": 0.9777777777777777,
+            "f1": 0.946236559139785,
+            "support": 45
+          }
+        ],
+        "confusion_matrix": [
+          [
+            73,
+            1,
+            1,
+            2,
+            1
+          ],
+          [
+            0,
+            94,
+            5,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            92,
+            1,
+            0
+          ],
+          [
+            6,
+            3,
+            2,
+            49,
+            2
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            44
+          ]
+        ],
+        "log_loss": 0.23156818747520447,
+        "multiclass_brier": 0.1140652905371235,
+        "expected_calibration_error": 0.02062882822026648,
+        "reliability_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.30000000000000004,
+            "count": 1,
+            "confidence": 0.29231026768684387,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.30000000000000004,
+            "upper": 0.4,
+            "count": 2,
+            "confidence": 0.36096930503845215,
+            "accuracy": 1.0
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 9,
+            "confidence": 0.4656149446964264,
+            "accuracy": 0.4444444444444444
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 8,
+            "confidence": 0.5541760921478271,
+            "accuracy": 0.5
+          },
+          {
+            "lower": 0.6000000000000001,
+            "upper": 0.7000000000000001,
+            "count": 15,
+            "confidence": 0.6617657542228699,
+            "accuracy": 0.8
+          },
+          {
+            "lower": 0.7000000000000001,
+            "upper": 0.8,
+            "count": 16,
+            "confidence": 0.7524468898773193,
+            "accuracy": 0.75
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 25,
+            "confidence": 0.8562763333320618,
+            "accuracy": 0.76
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "count": 302,
+            "confidence": 0.9889683127403259,
+            "accuracy": 0.9867549668874173
+          }
+        ],
+        "review_threshold": 0.65,
+        "threshold_coverage": 0.9338624338624338,
+        "threshold_accuracy": 0.9518413597733711
+      },
+      "test_raw": {
+        "accuracy": 0.9501385041551247,
+        "macro_f1": 0.9396650986335665,
+        "per_class": [
+          {
+            "label": "Anti-Assignment",
+            "precision": 0.9770114942528736,
+            "recall": 0.9239130434782609,
+            "f1": 0.9497206703910615,
+            "support": 92
+          },
+          {
+            "label": "Audit Rights",
+            "precision": 0.925531914893617,
+            "recall": 0.9775280898876404,
+            "f1": 0.9508196721311475,
+            "support": 89
+          },
+          {
+            "label": "Cap On Liability",
+            "precision": 0.9609375,
+            "recall": 0.968503937007874,
+            "f1": 0.9647058823529412,
+            "support": 127
+          },
+          {
+            "label": "Non-Compete",
+            "precision": 0.95,
+            "recall": 0.9047619047619048,
+            "f1": 0.926829268292683,
+            "support": 21
+          },
+          {
+            "label": "Termination For Convenience",
+            "precision": 0.90625,
+            "recall": 0.90625,
+            "f1": 0.90625,
+            "support": 32
+          }
+        ],
+        "confusion_matrix": [
+          [
+            85,
+            2,
+            3,
+            0,
+            2
+          ],
+          [
+            0,
+            87,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            4,
+            123,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            19,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            1,
+            29
+          ]
+        ],
+        "log_loss": 0.17419873178005219,
+        "multiclass_brier": 0.07929558245607916,
+        "expected_calibration_error": 0.023886364830497924,
+        "reliability_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.30000000000000004,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.30000000000000004,
+            "upper": 0.4,
+            "count": 3,
+            "confidence": 0.35132041573524475,
+            "accuracy": 0.3333333333333333
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 5,
+            "confidence": 0.4474915862083435,
+            "accuracy": 0.8
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 10,
+            "confidence": 0.5486143827438354,
+            "accuracy": 0.6
+          },
+          {
+            "lower": 0.6000000000000001,
+            "upper": 0.7000000000000001,
+            "count": 5,
+            "confidence": 0.6584064364433289,
+            "accuracy": 0.4
+          },
+          {
+            "lower": 0.7000000000000001,
+            "upper": 0.8,
+            "count": 9,
+            "confidence": 0.7623050212860107,
+            "accuracy": 0.5555555555555556
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 24,
+            "confidence": 0.8550592064857483,
+            "accuracy": 0.875
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "count": 305,
+            "confidence": 0.9879958629608154,
+            "accuracy": 0.9967213114754099
+          }
+        ],
+        "review_threshold": 0.65,
+        "threshold_coverage": 0.9445983379501385,
+        "threshold_accuracy": 0.9706744868035191
+      },
+      "test_calibrated": {
+        "accuracy": 0.9501385041551247,
+        "macro_f1": 0.9396650986335665,
+        "per_class": [
+          {
+            "label": "Anti-Assignment",
+            "precision": 0.9770114942528736,
+            "recall": 0.9239130434782609,
+            "f1": 0.9497206703910615,
+            "support": 92
+          },
+          {
+            "label": "Audit Rights",
+            "precision": 0.925531914893617,
+            "recall": 0.9775280898876404,
+            "f1": 0.9508196721311475,
+            "support": 89
+          },
+          {
+            "label": "Cap On Liability",
+            "precision": 0.9609375,
+            "recall": 0.968503937007874,
+            "f1": 0.9647058823529412,
+            "support": 127
+          },
+          {
+            "label": "Non-Compete",
+            "precision": 0.95,
+            "recall": 0.9047619047619048,
+            "f1": 0.926829268292683,
+            "support": 21
+          },
+          {
+            "label": "Termination For Convenience",
+            "precision": 0.90625,
+            "recall": 0.90625,
+            "f1": 0.90625,
+            "support": 32
+          }
+        ],
+        "confusion_matrix": [
+          [
+            85,
+            2,
+            3,
+            0,
+            2
+          ],
+          [
+            0,
+            87,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            4,
+            123,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            19,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            1,
+            29
+          ]
+        ],
+        "log_loss": 0.17737847566604614,
+        "multiclass_brier": 0.07958488282995041,
+        "expected_calibration_error": 0.03925159226824373,
+        "reliability_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.30000000000000004,
+            "count": 0,
+            "confidence": null,
+            "accuracy": null
+          },
+          {
+            "lower": 0.30000000000000004,
+            "upper": 0.4,
+            "count": 4,
+            "confidence": 0.35141777992248535,
+            "accuracy": 0.25
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 7,
+            "confidence": 0.45501676201820374,
+            "accuracy": 0.7142857142857143
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 8,
+            "confidence": 0.5402048826217651,
+            "accuracy": 0.625
+          },
+          {
+            "lower": 0.6000000000000001,
+            "upper": 0.7000000000000001,
+            "count": 7,
+            "confidence": 0.647030770778656,
+            "accuracy": 0.5714285714285714
+          },
+          {
+            "lower": 0.7000000000000001,
+            "upper": 0.8,
+            "count": 13,
+            "confidence": 0.7644201517105103,
+            "accuracy": 0.5384615384615384
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 28,
+            "confidence": 0.8485835790634155,
+            "accuracy": 0.9642857142857143
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "count": 294,
+            "confidence": 0.984474241733551,
+            "accuracy": 1.0
+          }
+        ],
+        "review_threshold": 0.65,
+        "threshold_coverage": 0.9418282548476454,
+        "threshold_accuracy": 0.9735294117647059
+      },
+      "confidence_interval": {
+        "available": true,
+        "unit": "duplicate/issuer group",
+        "resamples": 100,
+        "macro_f1_95_percent": [
+          0.9122109554649482,
+          0.9699691676386692
+        ]
+      }
+    }
+  },
+  "shap_example": {
+    "available": true,
+    "method": "SHAP",
+    "label": "Cap On Liability",
+    "output_unit": "uncalibrated class logit",
+    "base_value": 0.18503227228959843,
+    "total_attribution": 2.5010249631738324,
+    "features": [
+      {
+        "feature": "damages",
+        "contribution": 0.33881564326115005
+      },
+      {
+        "feature": "be liable",
+        "contribution": 0.23676779432164097
+      },
+      {
+        "feature": "liable",
+        "contribution": 0.22687454440034582
+      },
+      {
+        "feature": "consequential",
+        "contribution": 0.20500952829728422
+      },
+      {
+        "feature": "liable for",
+        "contribution": 0.17761747075843562
+      },
+      {
+        "feature": "for any",
+        "contribution": 0.1757157100533381
+      },
+      {
+        "feature": "special",
+        "contribution": 0.16801122245477315
+      },
+      {
+        "feature": "incidental",
+        "contribution": 0.14454828106298717
+      },
+      {
+        "feature": "exemplary",
+        "contribution": 0.14027955562116565
+      },
+      {
+        "feature": "exemplary damages",
+        "contribution": 0.08998686313503743
+      }
+    ],
+    "note": "Top present TF-IDF features only; omitted/absent features can also contribute. Explains the original model output, not calibrated probability, legal correctness or risk."
+  },
+  "versions": {
+    "scikit-learn": "1.9.1",
+    "shap": "0.54.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "xgboost-cpu": "3.4.1"
+  },
+  "python": "3.12.14",
+  "limitations": [
+    "Clause type is not legal risk. No validated low/medium/high risk model.",
+    "Positive gold spans only; full uploaded clauses and unseen categories are out of distribution.",
+    "The 0.65 review threshold is an operational heuristic, not a legal confidence guarantee.",
+    "Temperature scaling and a small held-out test do not establish production calibration."
+  ],
+  "model_sha256": "de585f9f305fedf8fd2aca51f1875da2c9fef78097511a7aeaf66e178ecb577f"
+}

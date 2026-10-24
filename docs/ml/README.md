@@ -2,9 +2,17 @@
 
 ## Current state
 
-The experiment pipeline and model lab are implemented. The CUAD release was obtained from its official GitHub repository and checksum-verified. A five-category positive-span adaptation was prepared with issuer/agreement/duplicate-group splits. **Real-corpus training is blocked pending verification of the release's license evidence. No CUAD model, business-risk model or benchmark score is claimed.** The direct CUAD project and Hugging Face pages currently return proxy access denials in this environment; network additions have been saved for environment-settings review.
+The official CUAD dataset card is now accessible and declares `license: cc-by-4.0`. Verification records the exact official URL, content hash and retrieval time. The pinned source was prepared, all three fixed-budget models were trained/evaluated, and the validation-selected Logistic Regression model was reviewed and activated locally. No business-risk model is claimed.
 
-Synthetic fixtures test fitting, metrics, calibration and SHAP mechanically. Their artifacts are explicitly `synthetic_test_only`, cannot be activated and are never shown as benchmark performance. Counts in the UI describe data preparation, not model quality.
+| Model | Validation macro F1 | Held-out test macro F1 | Test Brier, calibrated |
+| --- | --- | --- | --- |
+| Logistic Regression | 0.9606 | 0.9479 | 0.0600 |
+| Random Forest | 0.9315 | 0.9027 | 0.0932 |
+| XGBoost | 0.9268 | 0.9397 | 0.0796 |
+
+These are results on 361 held-out **positive gold spans across five categories**, not official CUAD extraction scores, full-contract accuracy or legal-risk validation. Train/validation/calibration/test sizes are 1,454/378/209/361. The selected model's 100-resample group-bootstrap macro-F1 interval is approximately [0.9183, 0.9786]; the smallest test class has only 21 spans. Logistic Regression's Brier score improved from 0.1449 to 0.0600 after calibration; XGBoost's slightly worsened, so calibration is not universally beneficial. Full metrics, confusion matrices, support, reliability bins, parameters, hashes and versions are preserved in [experiment-results.json](experiment-results.json).
+
+Synthetic fixtures still test the pipeline mechanically and cannot activate. Raw corpus text and pickle artifacts remain ignored by Git; the trained artifact is available in the current cloud filesystem. A clean clone must reproduce training/activation using the commands below.
 
 ## Task and corpus scope
 
@@ -12,7 +20,7 @@ Selected CUAD categories: Anti-Assignment, Audit Rights, Cap On Liability, Non-C
 
 Each row retains its agreement title, issuer proxy, source character offsets, gold text and label. Source offsets must reproduce the annotation text exactly. Short spans (<12 words), conflicting labels for identical spans/text and repeated same-document spans are excluded and counted. The dataset and generated artifacts are ignored by Git; they are not redistributed in the repository.
 
-The release's commonly published license is CC-BY-4.0, but a known license name alone does not mark this pipeline's verification complete. An official evidence page must identify CUAD and that license. The verifier records URL, content checksum and UTC retrieval time. The pinned source and paper citation remain in every report. If the release has different or additional terms, review them and update the workflow separately; do not bypass the gate by editing `verified` manually.
+The release's commonly published license is CC-BY-4.0, and the verified official metadata is retained in the experiment report. An evidence page must identify CUAD in its body or be the exact official CUAD dataset-card URL, and must declare that license. The verifier records URL, content checksum and UTC retrieval time. The pinned source and paper citation remain in every report. If the release has different or additional terms, review them and update the workflow separately; do not bypass the gate by editing `verified` manually.
 
 ## Reproduce preparation
 
@@ -34,9 +42,9 @@ Related agreements are connected by source ID and a filename-derived issuer prox
 
 Issuer proxies and lexical clustering cannot establish absence of all company/semantic leakage. Reports retain this limitation, per-class counts and group membership. No accuracy claim extends beyond this selected positive-span distribution.
 
-## Resolve the external prerequisite
+## Verify the release license
 
-In environment settings, review/save the added destinations `www.atticusprojectai.org` and `huggingface.co`, then publish. After access is available, run from `backend/`:
+Network access to `huggingface.co` is now verified in the published environment. The project website still returned HTTP 403, but the official dataset card supplies the required license declaration. To reproduce verification, run from `backend/`:
 
 ```bash
 .venv/bin/python -m app.ml.cli verify-license \

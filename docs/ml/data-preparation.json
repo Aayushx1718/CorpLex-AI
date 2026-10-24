@@ -15,9 +15,11 @@
   ],
   "citation": "Hendrycks, Burns, Chen and Ball (2021). CUAD: An Expert-Annotated NLP Dataset for Legal Contract Review. https://arxiv.org/abs/2103.06268",
   "license": {
-    "name": "CC-BY-4.0 (verification pending)",
-    "verified": false,
-    "evidence_url": null
+    "name": "CC-BY-4.0",
+    "verified": true,
+    "evidence_url": "https://huggingface.co/datasets/theatticusproject/cuad/raw/main/README.md",
+    "evidence_sha256": "835f3f7d88a86e05a882c6a6b6333da6ab874776385f85473798769d767c2fca",
+    "checked_at": "2026-10-24T16:20:44.089838+00:00"
   },
   "counts": {
     "train": {
@@ -68,5 +70,5 @@
   ],
   "independent_groups": 377,
   "largest_group_rows": 66,
-  "training_completed": false
+  "training_completed": true
 }

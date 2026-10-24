@@ -12,6 +12,18 @@ from app.ml.data import digest, normalized
 SPLITS = ('train', 'validation', 'calibration', 'test')
 
 
+def parameter_metadata(value):
+    """Represent nonfinite estimator sentinels as strings, never invalid JSON numbers."""
+    import math
+    if isinstance(value, dict):
+        return {key: parameter_metadata(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [parameter_metadata(item) for item in value]
+    if isinstance(value, float) and not math.isfinite(value):
+        return str(value)
+    return value
+
+
 def read_dataset(directory: Path, allow_synthetic: bool = False):
     manifest = json.loads((directory / 'manifest.json').read_text())
     content = (directory / 'clauses.jsonl').read_bytes()
@@ -162,7 +174,7 @@ def train(directory: Path, output: Path, allow_synthetic: bool = False, small_te
             validation = metrics(y['validation'], model.predict_proba(x['validation']), labels)
             raw_test = model.predict_proba(x['test'])
             calibrated_test = calibrate(raw_test, temperature)
-            results[name] = {'parameters': model.get_params(), 'temperature': temperature,
+            results[name] = {'parameters': parameter_metadata(model.get_params()), 'temperature': temperature,
                              'validation': validation, 'test_raw': metrics(y['test'], raw_test, labels),
                              'test_calibrated': metrics(y['test'], calibrated_test, labels),
                              'confidence_interval': bootstrap_interval(y['test'], calibrated_test, [r['group'] for r in grouped['test']], len(labels))}
@@ -197,7 +209,7 @@ def train(directory: Path, output: Path, allow_synthetic: bool = False, small_te
         artifact = staging / 'model.joblib'
         joblib.dump(bundles[winner], artifact)
         report['model_sha256'] = digest(artifact.read_bytes())
-        (staging / 'report.json').write_text(json.dumps(report, indent=2, default=str))
+        (staging / 'report.json').write_text(json.dumps(report, indent=2, default=str, allow_nan=False))
         (staging / 'split_manifest.json').write_text(json.dumps([{k: r[k] for k in ['id', 'source_id', 'issuer_id', 'group', 'split', 'label']} for r in rows], indent=2))
         staging.rename(output)
     except Exception:

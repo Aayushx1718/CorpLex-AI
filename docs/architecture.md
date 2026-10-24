@@ -1,6 +1,6 @@
 # Architecture and scope
 
-The repository was empty (unborn `work` branch, no tracked files or remote refs) at inspection. Phase 1 established the foundation; Phases 2–3 add deterministic ingestion and SQL-backed analytics, with ML training and later AI features still pending.
+The repository was empty (unborn `work` branch, no tracked files or remote refs) at inspection. Phase 1 established the foundation; Phases 2–3 add deterministic ingestion and SQL-backed analytics, with a five-category clause-type model added in Phase 4; later AI features remain pending.
 
 ## Components
 
@@ -8,7 +8,7 @@ React + TypeScript + Tailwind → Vite `/api` proxy → FastAPI / Pydantic → S
 
 The frontend calls a real API health endpoint. Liveness does not depend on PostgreSQL; readiness checks that PostgreSQL and the Phase 3 analytics view are available. Contract upload/list, source inspection and portfolio analytics endpoints are implemented. Recharts renders live type/kind counts; exact financial term groups use precision-preserving tables.
 
-Phase 4 preparation adds optional offline clause-type experiments and a trusted local artifact boundary; real-corpus training is gated on license verification. Later phases add hybrid retrieval with FAISS or Chroma, and finally LangGraph orchestration. No trained risk model is currently available. Install those dependencies only when their phase needs them. PostgreSQL remains the source of truth; vector indexes are rebuildable derived artifacts. Current uploads use synchronous request handlers with resource-bounded parser subprocesses. A durable background job queue is deferred until workloads require one.
+Phase 4 preparation adds optional offline clause-type experiments and a trusted local artifact boundary; license verification succeeded and the reviewed validation-selected classifier is active locally. Later phases add hybrid retrieval with FAISS or Chroma, and finally LangGraph orchestration. No trained risk model is currently available. Install those dependencies only when their phase needs them. PostgreSQL remains the source of truth; vector indexes are rebuildable derived artifacts. Current uploads use synchronous request handlers with resource-bounded parser subprocesses. A durable background job queue is deferred until workloads require one.
 
 ## Folder structure
 

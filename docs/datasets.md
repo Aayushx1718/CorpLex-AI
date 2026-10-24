@@ -1,6 +1,6 @@
 # Dataset and evaluation plan
 
-The official CUAD GitHub archive has been downloaded and checksum-verified; a five-category grouped adaptation is prepared locally. No real-corpus model has been trained. License evidence verification remains blocked by direct project/dataset-card network access. See ml/README.md. Confirm the exact release license and usage restrictions before downloading, redistributing or training. Public availability alone is not permission.
+The official CUAD GitHub archive has been downloaded and checksum-verified; a five-category grouped adaptation is prepared locally. The official Hugging Face card declares CC-BY-4.0 and license evidence was verified. A five-category clause-type benchmark was trained and evaluated; this is not legal-risk validation. See ml/README.md. Confirm the exact release license and usage restrictions before downloading, redistributing or training. Public availability alone is not permission.
 
 | Candidate | Useful signal | Limitation |
 | --- | --- | --- |

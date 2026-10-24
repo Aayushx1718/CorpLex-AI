@@ -106,6 +106,7 @@ def test_three_models_train_and_explain_but_fixture_is_never_deployable(syntheti
     from app.ml.training import train
     run = tmp_path / 'artifacts' / 'fixture-run'
     result = train(synthetic_dataset, run, allow_synthetic=True, small_test=True)
+    json.dumps(result, allow_nan=False)  # Must be serveable by a strict JSON API.
     assert result['validation_scope'] == 'synthetic_test_only'
     assert result['deployable'] is False
     assert set(result['comparisons']) == {'logistic_regression', 'random_forest', 'xgboost'}
@@ -181,3 +182,14 @@ def test_archive_download_checksum_failure_does_not_write_file(tmp_path, monkeyp
     with pytest.raises(ValueError, match='checksum'):
         fetch_archive(output)
     assert not output.exists()
+
+
+def test_official_cuad_card_can_identify_dataset_by_exact_url(synthetic_dataset, monkeypatch):
+    from io import BytesIO
+    from app.ml.data import verify_license
+    class Page(BytesIO):
+        url = 'https://huggingface.co/datasets/theatticusproject/cuad/raw/main/README.md'
+    monkeypatch.setattr('urllib.request.urlopen', lambda *args, **kwargs: Page(b'---\nlicense: cc-by-4.0\n---\n'))
+    assert verify_license(synthetic_dataset, Page.url)['verified'] is True
+    with pytest.raises(ValueError, match='does not clearly'):
+        verify_license(synthetic_dataset, 'https://huggingface.co/datasets/someone/other/raw/main/README.md')
