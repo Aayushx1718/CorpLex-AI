@@ -1,0 +1,7 @@
+SYNTHETIC EMPLOYMENT AGREEMENT
+Parties: Cedar Demo Labs Ltd and Morgan Example.
+Effective date: 2026-02-01.
+1. Role. Morgan Example is employed as an analyst.
+2. Compensation. The employer shall pay USD 5000.00 per month on the last business day of each month.
+3. Notice. Either party may terminate with 30 days of written notice, subject to applicable law.
+4. Confidentiality. Non-public employer information shall be protected during employment.

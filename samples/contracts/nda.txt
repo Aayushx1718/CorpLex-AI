@@ -1,0 +1,7 @@
+SYNTHETIC NON-DISCLOSURE AGREEMENT
+Parties: Cedar Demo Labs Ltd and Harbor Example Consulting Ltd.
+Effective date: 2026-01-01. Expiration date: 2027-01-01.
+1. Confidentiality. Each party shall protect the other party's non-public business information and use it only to evaluate a proposed collaboration.
+2. Exclusions. Information already public or independently developed is excluded.
+3. Return. Upon written request, confidential materials shall be returned within 30 days, except legally required archival copies.
+4. Term. Confidentiality obligations survive expiration for two years.

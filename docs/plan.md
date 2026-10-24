@@ -1,0 +1,13 @@
+# Phased plan and acceptance criteria
+
+| Phase | Deliverable | Acceptance gate |
+| --- | --- | --- |
+| 1 — Foundation | Architecture, schema, API, React, sample contracts and reproducible setup | PostgreSQL initializes; API liveness/readiness respond; React calls API; backend/frontend tests and production web build pass |
+| 2 — Ingestion | PDF/DOCX extraction, ETL, validation and deduplication | Original fixtures preserve source anchors, dates/parties/money; repeated ingestion is idempotent; malformed/oversize/encrypted files fail safely; transactional failures leave no partial validated records; scanned-PDF limitations documented |
+| 3 — Analytics | SQL views, joins/CTEs/windows and interactive Recharts dashboards | KPIs match independently calculated fixtures; latest-version selection avoids double counting; currency, missing dates and empty states tested; filter results match SQL |
+| 4 — ML | Labeled clause corpus, baselines, RF/XGBoost comparison and SHAP | Provenance/license and annotation rubric recorded; grouped leakage-safe splits; metrics/support/calibration reported on a held-out set; no accuracy claims without adequate data |
+| 5 — RAG | Chunking, LangChain, lexical+dense retrieval with metadata filters | Held-out question set; retrieval recall and citation support measured against a frozen baseline; exact evidence links; unanswerable/hostile-document cases abstain; no cross-contract filter leakage |
+| 6 — Exposure & comparison | Formula-backed scenarios and version/contract diffs | Hand-calculated fixtures match amounts and currencies; assumptions and hypothetical results labeled; source-linked differences and conflicting obligations reviewed; no claim of legal determination |
+| 7 — Workflows & release | Deterministic steps then LangGraph, approvals, security and deployment | Replays are idempotent; consequential recommendations cannot bypass recorded approval; upload/auth/isolation/retention tests; secrets outside source; container and CI checks, backup/restore and documented cloud deployment |
+
+Phases 1 and 2 are implemented: ingestion is deterministic and source-backed, with original synthetic PDF/DOCX fixtures. OCR, human approval UI, advanced legal extraction and production security are excluded. No trained model, RAG answers, financial estimates or automated legal recommendations exist yet. Start each later phase only after the preceding gate is met; evaluation/data availability may limit ML scope independently of analytics.

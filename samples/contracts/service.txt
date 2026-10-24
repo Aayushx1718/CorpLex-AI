@@ -1,0 +1,7 @@
+SYNTHETIC SERVICE AGREEMENT
+Parties: Cedar Demo Labs Ltd (client) and Harbor Example Consulting Ltd (provider).
+Effective date: 2026-04-01. Expiration date: 2026-09-30.
+1. Services. Provider shall deliver monthly technical advisory sessions.
+2. Fees. Client shall pay USD 2000.00 per month, due on the fifteenth day of each month.
+3. Termination. Client may terminate on 30 days of written notice and shall pay fees for completed services plus a one-time USD 500.00 termination charge.
+4. Liability. Aggregate liability is limited to fees paid under this agreement, except where prohibited by applicable law.
