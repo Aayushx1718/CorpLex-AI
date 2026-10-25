@@ -16,3 +16,8 @@ samples/generated/
 
 data/external/
 artifacts/
+
+# Database backups contain original uploaded documents.
+*.dump
+*.dump.sha256
+*.dump.partial

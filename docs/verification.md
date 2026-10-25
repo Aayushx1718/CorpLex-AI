@@ -10,3 +10,12 @@ This document describes what was actually exercised during the remaining-work im
 - A separate random-name protected-mode stack used generated in-memory test tokens and a nondefault database password. It verified unauthenticated 401, authorized access/upload, reviewer 403/200, approval-gated export and origin rejection. Only its own test stack was stopped; no user document volume was deleted.
 - `npm audit --omit=dev --audit-level=high` reported zero production dependency vulnerabilities at this run. This excludes development packages, Python/image vulnerability scanning and future advisories; those remain release checks.
 - GitHub Actions configuration was added, but a remote Actions pass must be checked after the workflow actually runs. Local success does not prove remote CI, public deployment, snapshot restoration or live hosted-LLM quality.
+
+## Navigation and recovery follow-up
+
+- Workspace navigation now renders one page at a time, with active sidebar state, direct links and browser Back/Forward. The frontend suite passed **23 tests** and the production build passed after this change.
+- The backend suite passed **78 tests** after adding recovery and the provider-check CLI. Provider-check tests cover no-key/no-request behavior, synthetic-only inputs, required abstention and redacted error output; these are not live provider results.
+- The new recovery service backed up the running demo database and restored it into an isolated temporary database. Validation passed with 1 contract, 2 versions/source documents, 10 clauses, 6 obligations, 2 research answers, 1 scenario, 1 workflow and 7 audit events. Original byte hashes and source offsets matched. The live application database was not overwritten.
+- Prior core implementation CI passed at commit `7ebbd28` (GitHub Actions run 40183341015). The new recovery CI step still requires its own remote execution after push; earlier results do not validate the new step.
+
+- Recovery negative checks rejected both a modified archive (checksum mismatch) and a valid-checksum archive containing intentionally invalid clause offsets. Both used isolated copies of synthetic demo data.

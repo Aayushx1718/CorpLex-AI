@@ -41,6 +41,16 @@ jobs:
       - run: npm run build --prefix frontend
       - run: docker compose -p corplex-ci -f compose.app.yaml up --build -d --wait --wait-timeout 180
       - run: curl --fail http://127.0.0.1:8080/api/health
+      - name: Exercise backup and isolated recovery with a source document
+        env:
+          CORPLEX_BACKUP_DIR: ${{ runner.temp }}/corplex-backups
+        run: |
+          backend/.venv/bin/python scripts/generate_samples.py
+          curl --fail -F contract_type=vendor -F title=Recovery-check -F file=@samples/generated/vendor.docx http://127.0.0.1:8080/api/contracts > /dev/null
+          mkdir -p "$CORPLEX_BACKUP_DIR"
+          docker compose -p corplex-ci -f compose.app.yaml -f compose.backup.yaml run --rm recovery backup
+          backup_name=$(basename "$(find "$CORPLEX_BACKUP_DIR" -maxdepth 1 -name '*.dump' -print -quit)")
+          docker compose -p corplex-ci -f compose.app.yaml -f compose.backup.yaml run --rm recovery verify "$backup_name"
       - if: always()
         run: docker compose -p corplex-ci -f compose.app.yaml logs --tail 50
       - if: always()

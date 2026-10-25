@@ -33,3 +33,21 @@ Empty/unanswerable scopes return an explicit abstention without citations. Backe
 Run `backend/.venv/bin/python scripts/evaluate_research.py`. The frozen CC0 fixture in `samples/contracts/research-evaluation.json` has three original synthetic documents, eight answerable questions and four unsupported/hostile questions. Gold evidence is independently specified as source substrings. The script compares lexical, local dense and hybrid retrieval and writes `docs/research-evaluation.json` with recall@3, MRR@3, exact quote rate and abstention results.
 
 This small set tests mechanics and scope boundaries, not legal QA generalization. All three methods pass these twelve cases; this does not establish an advantage for hybrid retrieval. No hosted generation quality score is fabricated. Before public/legal use, add independently reviewed real-world questions, negative and adversarial cases, document-family holdouts, citation relevance/support grading, latency/cost measurements and pretrained-embedding comparisons.
+
+## Secure Windows setup and an opt-in live check
+
+In your local project root, open the ignored `.env` file (`notepad .env`) and add `CORPLEX_LLM_API_KEY` with your actual provider key and `CORPLEX_LLM_MODEL=gpt-4.1-mini`. Do not share the file, paste a key in chat, put it in a frontend variable, or capture it in screenshots. OpenAI API billing is separate from ChatGPT subscriptions. Hosted requests incur provider usage charges; local mode remains available without them.
+
+After saving, recreate the backend so it receives the changed environment:
+
+```cmd
+docker compose -p corplex-app -f compose.app.yaml up -d --force-recreate backend
+```
+
+After pulling/building the version containing the check module, you can explicitly run:
+
+```cmd
+docker compose -p corplex-app -f compose.app.yaml exec -T backend .venv/bin/python -m app.research.check_provider
+```
+
+The check makes at most two live provider calls using original synthetic payment text, verifies an exact supported quotation and unsupported governing-law abstention, and never reads the contract database. It returns nonzero if missing configuration or a check failure occurs. It prints neither credentials nor provider error bodies. A passing check proves those two requests worked, not broad legal/QA accuracy. It is never run automatically in CI or at application startup. For normal use, open Research & review tools, choose hosted mode and a source scope, and inspect the returned exact citations.

@@ -41,7 +41,7 @@ The sample stack binds only loopback. A real host must provide HTTPS termination
 
 ## Backup and recovery
 
-Use `pg_dump` against the PostgreSQL service and store the backup outside checkout roots/volumes, with appropriate encryption and access controls. Restore into a separate database and verify original byte hashes, counts and source offsets before relying on it. Never dump credentials or confidential contract content into CI logs. Docker volumes may not be retained by cloud environment snapshots; back up documents explicitly. A scheduled backup/retention service is not implemented by this repository.
+The optional recovery service makes a PostgreSQL custom-format backup and checksum, then verifies a restore in a randomly named temporary database. It checks original document SHA-256 values, clause/entity text offsets, source-unit bounds, required analytics views and record counts. The application database is never overwritten. See [the Windows backup and recovery guide](recovery.md). Store backups outside checkout roots/volumes with appropriate encryption and access controls. Never dump credentials or confidential contract content into CI logs. Docker volumes may not be retained by cloud environment snapshots; back up documents explicitly. A scheduled backup/retention service is not implemented by this repository.
 
 ## CI
 

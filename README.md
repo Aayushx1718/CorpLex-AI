@@ -56,10 +56,12 @@ Stop terminal servers with Ctrl-C; `docker compose stop db` stops the database w
 
 ## Configuration
 
-`.env` is ignored. Settings are loaded relative to `backend/`, so start the API there. `DATABASE_URL` uses SQLAlchemy's psycopg dialect. `CORS_ORIGINS` is a JSON list. Vite's proxy keeps development requests same-origin. No LLM credentials are needed in Phases 1–2. Never commit API keys or confidential contracts. Changing PostgreSQL credentials on an existing volume requires a database password change; editing `.env` alone does not update that database.
+`.env` is ignored. Settings are loaded relative to `backend/`, so start the API there. `DATABASE_URL` uses SQLAlchemy's psycopg dialect. `CORS_ORIGINS` is a JSON list. Vite's proxy keeps development requests same-origin. Local research, ingestion and analytics need no LLM credentials. Never commit API keys or confidential contracts. Changing PostgreSQL credentials on an existing volume requires a database password change; editing `.env` alone does not update that database.
 
 ## Design and next steps
 
+- [Backup and recovery](docs/recovery.md)
+- [Completion status and external release gates](docs/completion.md)
 - [Contract research and hosted setup](docs/research.md)
 - [Financial scenarios and comparison](docs/financial-comparison.md)
 - [Workflow approvals and access controls](docs/workflows-security.md)
@@ -91,7 +93,7 @@ Or use **Contract repository → Upload and extract** in the frontend. Inspect e
 - `GET /api/documents/{id}`: canonical extracted text, source units, clauses, entities and pending obligation candidates.
 - `POST /api/contracts`: multipart `file`, `contract_type`, optional `title` / `contract_id`.
 
-Upload constraints and extraction limitations are documented in [Phase 2 ingestion](docs/ingestion.md). OCR and human approval are not implemented. The database holds original bytes atomically with extracted records; no raw-document download endpoint is exposed. Back up the PostgreSQL volume to retain uploads; do not assume environment snapshots preserve an external Docker daemon's volumes.
+Upload constraints and extraction limitations are documented in [Phase 2 ingestion](docs/ingestion.md). OCR is not implemented; extracted obligations can be reviewed through the workflow tools. The database holds original bytes atomically with extracted records; no raw-document download endpoint is exposed. Back up the PostgreSQL volume to retain uploads; do not assume environment snapshots preserve an external Docker daemon's volumes.
 
 ## Portfolio analytics
 

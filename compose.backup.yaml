@@ -1,0 +1,25 @@
+# Optional operations service; never publishes a port or replaces the application DB.
+services:
+  recovery:
+    image: postgres:17.6-bookworm
+    profiles: [operations]
+    environment:
+      PGHOST: db
+      PGUSER: ${POSTGRES_USER:-corplex}
+      PGPASSWORD: ${POSTGRES_PASSWORD:-corplex_local}
+      PGDATABASE: ${POSTGRES_DB:-corplex}
+    volumes:
+      - type: bind
+        source: ${CORPLEX_BACKUP_DIR:?Set CORPLEX_BACKUP_DIR to an existing absolute backup directory outside this repository}
+        target: /backups
+      - ./scripts/recovery.sh:/opt/recovery.sh:ro
+      - ./scripts/verify_recovery.sql:/opt/verify_recovery.sql:ro
+    entrypoint: [/bin/sh, /opt/recovery.sh]
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    depends_on:
+      db:
+        condition: service_healthy
