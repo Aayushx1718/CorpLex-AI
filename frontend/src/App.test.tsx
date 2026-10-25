@@ -7,7 +7,7 @@ it('shows live API status and distinguishes future capabilities', async () => {
   render(<App />);
   expect(await screen.findByText('Connected')).toBeInTheDocument();
   expect(screen.getByText('Not trained')).toBeInTheDocument();
-  expect(screen.getAllByText('Planned')).toHaveLength(3);
+  expect(screen.getByText('Contract intelligence workspace')).toBeInTheDocument();
   expect(screen.getByRole('button', { name: 'Upload and extract' })).toBeInTheDocument();
 });
 it('reports an API failure', async () => {

@@ -12,7 +12,7 @@ def build_ml_router(settings):
 
     @router.get('/status')
     def status():
-        return model_status(settings.ml_dataset_dir, settings.ml_artifacts_dir)
+        return model_status(settings.ml_dataset_dir, settings.ml_artifacts_dir, getattr(settings, 'ml_benchmark_path', None))
 
     @router.post('/classify')
     def classify_clause(body: ClauseRequest):

@@ -8,14 +8,14 @@ React + TypeScript + Tailwind → Vite `/api` proxy → FastAPI / Pydantic → S
 
 The frontend calls a real API health endpoint. Liveness does not depend on PostgreSQL; readiness checks that PostgreSQL and the Phase 3 analytics view are available. Contract upload/list, source inspection and portfolio analytics endpoints are implemented. Recharts renders live type/kind counts; exact financial term groups use precision-preserving tables.
 
-Phase 4 preparation adds optional offline clause-type experiments and a trusted local artifact boundary; license verification succeeded and the reviewed validation-selected classifier is active locally. Later phases add hybrid retrieval with FAISS or Chroma, and finally LangGraph orchestration. No trained risk model is currently available. Install those dependencies only when their phase needs them. PostgreSQL remains the source of truth; vector indexes are rebuildable derived artifacts. Current uploads use synchronous request handlers with resource-bounded parser subprocesses. A durable background job queue is deferred until workloads require one.
+Phase 4 preparation adds optional offline clause-type experiments and a trusted local artifact boundary; license verification succeeded and the reviewed validation-selected classifier is active locally. The workbench now adds filtered lexical + corpus-local LSA/FAISS retrieval coordinated with LangChain, decimal scenario calculations, textual comparison and deterministic LangGraph reports with human approval. Hosted generation is quote-only and requires a secure provider key; live provider validation is pending. No trained risk model is currently available. Install those dependencies only when their phase needs them. PostgreSQL remains the source of truth; vector indexes are rebuildable derived artifacts. Current uploads use synchronous request handlers with resource-bounded parser subprocesses. A durable background job queue is deferred until workloads require one.
 
 ## Folder structure
 
 - `backend/app/`: settings, API and subsequent domain services.
 - `backend/tests/`: API, extraction, PostgreSQL integration and gated ML tests.
 - `frontend/src/`: React workspace, styles and component tests.
-- `db/`: normalized bootstrap schema and additive ingestion/analytics migrations, no seeded claims.
+- `db/`: normalized bootstrap schema and additive ingestion/analytics/workbench migrations, no seeded claims.
 - `samples/contracts/`: original synthetic demonstration contracts and provenance.
 - `docs/`: architecture, schema decisions, datasets and acceptance criteria.
 - `compose.yaml`: local PostgreSQL with persistent storage and health check.
@@ -28,4 +28,4 @@ No generic risk score is presented as a learned probability. Annotations, model 
 
 ## Reproducibility
 
-Python dependencies are pinned by `backend/uv.lock`; JavaScript dependencies by `frontend/package-lock.json`. Use Python 3.12, Node 24, uv and Docker Compose v2. PostgreSQL uses a fixed version tag. For deployment, pin container digests and build tested API/web images in Phase 7. Current Docker support intentionally covers the database, not a production deployment.
+Python dependencies are pinned by `backend/uv.lock`; JavaScript dependencies by `frontend/package-lock.json`. Use Python 3.12, Node 24, uv and Docker Compose v2. PostgreSQL uses a fixed version tag. For deployment, pin container digests and build tested API/web images in Phase 7. Docker packages the API/web/database with non-root app processes and a reverse proxy. The stack is loopback-only by default; public production deployment is not performed automatically.

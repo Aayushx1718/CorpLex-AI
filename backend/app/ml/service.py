@@ -10,7 +10,7 @@ class ModelUnavailable(ValueError):
     pass
 
 
-def model_status(dataset_dir: Path, artifacts_dir: Path) -> dict:
+def model_status(dataset_dir: Path, artifacts_dir: Path, benchmark_path: Path | None = None) -> dict:
     installed = {}
     for name in ['scikit-learn', 'shap', 'xgboost-cpu', 'xgboost']:
         try:
@@ -34,7 +34,21 @@ def model_status(dataset_dir: Path, artifacts_dir: Path) -> dict:
     try:
         _, report = active_paths(artifacts_dir)
     except ModelUnavailable:
+        if benchmark_path and benchmark_path.is_file():
+            try:
+                benchmark = json.loads(benchmark_path.read_text())
+                if benchmark.get('task') == 'clause_type' and benchmark.get('validation_scope') == 'CUAD_positive_gold_spans_only' and benchmark.get('dataset', {}).get('license', {}).get('verified'):
+                    result.update(status='published_benchmark_only', report=benchmark,
+                                  dataset={key: benchmark['dataset'].get(key) for key in ['dataset','purpose','source_url','citation','license','counts','exclusions','limitations']},
+                                  message='Recorded CUAD benchmark results are available. No local inference artifact is active; reproduce training and review/activate it to classify text.')
+            except (OSError, ValueError, AttributeError):
+                pass
         return result
+    if 'scikit-learn' not in installed or 'shap' not in installed:
+        result.update(status='ml_dependencies_missing', message='Install the optional ML dependency group before using the active artifact.')
+        return result
+    if result['dataset'] is None:
+        result['dataset'] = {key: report['dataset'].get(key) for key in ['dataset', 'purpose', 'source_url', 'citation', 'license', 'counts', 'exclusions', 'limitations']}
     result.update(model_available=True, status='clause_model_available', report=report,
                   message='Closed-set clause-type model only. Uploaded clauses may be outside the benchmark distribution; every result requires review.')
     return result

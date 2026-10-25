@@ -1,6 +1,16 @@
 # CorpLex AI
 
-Corporate contract intelligence and financial risk analytics. **Phases 1–3 complete; Phase 4 clause-type benchmark implemented**: a working FastAPI service, React/TypeScript/Tailwind upload workspace, PostgreSQL storage, deterministic PDF/DOCX extraction, SQL-backed interactive analytics and original synthetic contracts. A reviewed five-category CUAD clause-type classifier is trained and active in the current cloud environment. No trained business-risk model, RAG or agents are claimed. Decision-support information only; not legal advice.
+Corporate contract intelligence and financial risk analytics. The portfolio now includes document ingestion, SQL analytics, evaluated clause-type ML, cited research, explicit what-if scenarios, version comparison and human-reviewed LangGraph reports. **No validated business-risk severity model or autonomous legal decision maker is claimed.** Hosted LLM evidence selection is implemented but awaits a secure provider key and live validation.
+
+## Quickest way to see the app
+
+With Git and Docker Desktop installed and running, clone this repository and run:
+
+```bash
+docker compose -p corplex-app -f compose.app.yaml up --build -d --wait
+```
+
+The interface runs on your computer's loopback port **8080**. This container option does not require host Python, Node or uv. It includes the source-backed tools and recorded ML benchmark results; classification additionally requires the optional ML dependencies and trusted trained artifact. See [deployment and Windows instructions](docs/deployment.md).
 
 ## Run locally
 
@@ -50,6 +60,9 @@ Stop terminal servers with Ctrl-C; `docker compose stop db` stops the database w
 
 ## Design and next steps
 
+- [Contract research and hosted setup](docs/research.md)
+- [Financial scenarios and comparison](docs/financial-comparison.md)
+- [Workflow approvals and access controls](docs/workflows-security.md)
 - [Architecture and folders](docs/architecture.md)
 - [ML preparation, license gate and experiment workflow](docs/ml/README.md)
 - [Portfolio analytics and metric definitions](docs/analytics.md)
@@ -58,7 +71,7 @@ Stop terminal servers with Ctrl-C; `docker compose stop db` stops the database w
 - [Phased implementation plan and acceptance gates](docs/plan.md)
 - [Synthetic sample provenance](samples/contracts/README.md)
 
-The foundation runs on the host with PostgreSQL in Docker. Full application images, production security, a migration framework and cloud deployment are future release work. Do not expose this local development foundation publicly.
+Host development and a non-root Docker application stack are supported. Access/reviewer token gates, data-preserving migrations and CI are implemented. Public cloud deployment, per-user identity/tenant controls and production/legal review remain external release work; see docs/workflows-security.md.
 
 ## Upload and verify a synthetic contract
 
@@ -93,3 +106,15 @@ curl --fail 'http://127.0.0.1:8000/api/analytics/overview?as_of=2026-03-01&contr
 The machine learning lab displays real dataset provenance, held-out comparisons, per-class performance, confusion matrices and SHAP explanations. License verification succeeded using the official CUAD dataset card. Validation selected Logistic Regression; its test macro F1 is **0.9479 on 361 positive gold spans across five categories**. This is not a full-contract extraction score or a validated legal-risk model. See [the ML workflow and full experiment report](docs/ml/README.md).
 
 The classifier is active in the current cloud filesystem. Raw data and trained pickle artifacts are excluded from Git; a fresh clone must fetch/prepare the pinned release, verify its license, train and review/activate an artifact using the documented commands. Install the optional `ml` group for these operations and the full ML test suite. Without the group, ingestion and analytics remain supported but optional ML tests skip.
+
+## Intelligence workbench
+
+- **Contract research:** choose all latest agreements or an explicit source version, ask a question and inspect exact quotations. Local mode needs no key. Hosted mode requires `CORPLEX_LLM_API_KEY` in secure backend settings; the browser never receives it. It sends selected excerpts to the provider only when that mode is chosen. Unsupported questions abstain.
+- **What-if scenarios:** select a source obligation, quantity, optional assumed rate/cap and a meaningful assumption note. Pending sources require explicit acknowledgment. Currency totals never mix, and hypothetical amounts are not represented as losses.
+- **Compare versions:** select two stored versions and inspect matched/changed/unmatched clauses and the source diff. Textual differences are not automatically legal conflicts.
+- **Review workflow:** generate a six-step LangGraph report, inspect source evidence, record a human decision and optionally approve individual extracted terms. Export is blocked until report approval. Local names are unverified; production review requires a separate reviewer token.
+- **Audit log:** inspect stored application events. It is not a tamper-proof regulatory ledger.
+
+Reproduce the small synthetic retrieval check with `backend/.venv/bin/python scripts/evaluate_research.py`. Run the optional protected-container smoke check with `backend/.venv/bin/python scripts/check_protected_stack.py` after building images and generating samples; it creates/stops only its own random-name test project on port 8081. It never prints generated test tokens.
+
+For shared operation, configure strong distinct workspace/reviewer tokens and a nondefault database password; `APP_ENV=production` refuses insecure defaults. Tokens belong in ignored local/runtime configuration, never in Git. The default local demonstration has no authentication and must not be exposed publicly. See the release limits before claiming production readiness.

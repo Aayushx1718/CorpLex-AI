@@ -193,3 +193,13 @@ def test_official_cuad_card_can_identify_dataset_by_exact_url(synthetic_dataset,
     assert verify_license(synthetic_dataset, Page.url)['verified'] is True
     with pytest.raises(ValueError, match='does not clearly'):
         verify_license(synthetic_dataset, 'https://huggingface.co/datasets/someone/other/raw/main/README.md')
+
+
+def test_published_benchmark_does_not_enable_missing_inference(tmp_path):
+    report=tmp_path/'benchmark.json'
+    report.write_text(json.dumps({'task':'clause_type','validation_scope':'CUAD_positive_gold_spans_only',
+        'dataset':{'license':{'verified':True},'counts':{}},'comparisons':{}}))
+    status=model_status(tmp_path/'missing-data',tmp_path/'missing-models',report)
+    assert status['model_available'] is False
+    assert status['status']=='published_benchmark_only'
+    assert status['report'] is not None

@@ -11,6 +11,11 @@ dependencies = [
   "python-multipart>=0.0.20,<1",
   "pypdf>=6,<7",
   "python-docx>=1.2,<2",
+  "langchain-core>=1,<2",
+  "faiss-cpu>=1.12,<2",
+  "scikit-learn>=1.7,<2",
+  "langgraph>=1,<2",
+  "httpx>=0.28,<1",
 ]
 
 [dependency-groups]

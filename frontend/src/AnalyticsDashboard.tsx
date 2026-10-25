@@ -1,3 +1,4 @@
+import { apiFetch as fetch } from './api';
 import { useEffect, useState, type FormEvent } from 'react';
 import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 

@@ -1,0 +1,60 @@
+services:
+  db:
+    image: postgres:17.6-bookworm
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-corplex}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-corplex_local}
+      POSTGRES_DB: ${POSTGRES_DB:-corplex}
+    volumes:
+      - app_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB']
+      interval: 3s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped
+  backend:
+    image: corplex-app-backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      args:
+        INCLUDE_ML: ${INCLUDE_ML:-false}
+    environment:
+      DATABASE_URL: ${CONTAINER_DATABASE_URL:-postgresql+psycopg://corplex:corplex_local@db:5432/corplex}
+      APP_ENV: ${APP_ENV:-development}
+      CORPLEX_ACCESS_TOKEN: ${CORPLEX_ACCESS_TOKEN:-}
+      CORPLEX_REVIEW_TOKEN: ${CORPLEX_REVIEW_TOKEN:-}
+      CORPLEX_LLM_API_KEY: ${CORPLEX_LLM_API_KEY:-}
+      CORPLEX_LLM_MODEL: ${CORPLEX_LLM_MODEL:-gpt-4.1-mini}
+      CORS_ORIGINS: ${CORS_ORIGINS:-["http://localhost:8080","http://127.0.0.1:8080"]}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-["localhost","127.0.0.1","backend"]}
+    depends_on:
+      db:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=128m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 256
+    mem_limit: 2g
+    restart: unless-stopped
+  frontend:
+    image: corplex-app-frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - '127.0.0.1:${APP_PORT:-8080}:8080'
+    depends_on:
+      backend:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    restart: unless-stopped
+volumes:
+  app_postgres_data:

@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 from pydantic import BaseModel
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
@@ -9,6 +10,12 @@ from app.routes import build_router
 from app.uploads import UploadLimitMiddleware
 from app.analytics import build_analytics_router
 from app.ml.routes import build_ml_router
+from app.research.routes import build_research_router
+from app.finance.routes import build_finance_router
+from app.finance.comparison import build_comparison_router
+from app.workflows.routes import build_workflow_router
+from app.security import SecurityMiddleware
+from app.workbench import build_workbench_router
 
 settings = get_settings()
 engine = create_engine(settings.database_url, pool_pre_ping=True, connect_args={"connect_timeout": 3})
@@ -20,7 +27,7 @@ async def lifespan(app: FastAPI):
     engine.dispose()
 
 
-app = FastAPI(title="CorpLex AI", version="0.3.0", lifespan=lifespan)
+app = FastAPI(title="CorpLex AI", version="0.7.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware, allow_origins=settings.cors_origins,
     allow_credentials=False, allow_methods=["GET", "POST"], allow_headers=["*"],
@@ -30,6 +37,20 @@ app.add_middleware(UploadLimitMiddleware)
 app.include_router(build_router(engine))
 app.include_router(build_analytics_router(engine))
 app.include_router(build_ml_router(settings))
+app.include_router(build_research_router(engine, settings))
+app.include_router(build_finance_router(engine))
+app.include_router(build_comparison_router(engine))
+app.include_router(build_workflow_router(engine, settings))
+app.include_router(build_workbench_router(engine))
+app.add_middleware(SecurityMiddleware, settings=settings)
+app.add_middleware(TrustedHostMiddleware, allowed_hosts=settings.allowed_hosts)
+
+
+@app.get("/api/access")
+def access_status():
+    return {"authentication_required": bool(settings.corplex_access_token),
+            "reviewer_token_required": bool(settings.corplex_review_token),
+            "mode": settings.app_env}
 
 
 class Health(BaseModel):
