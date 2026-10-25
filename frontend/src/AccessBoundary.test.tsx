@@ -58,3 +58,29 @@ it('clears protected access and session identity when leaving the workspace', as
   await apiFetch('/api/check-cleared');
   expect(new Headers(fetch.mock.calls.at(-1)?.[1]?.headers).has('Authorization')).toBe(false);
 });
+it('sets up a password account, rejects confirmation mismatch and never stores credentials in browser storage', async () => {
+  const fetch = vi.fn().mockImplementation(async (url: string) => ({ ok: true, json: async () => url === '/api/access' ? { authentication_required: true, auth_mode: 'password', setup_required: true, authenticated: false } : { username: 'aayush', authenticated: true } }));
+  vi.stubGlobal('fetch', fetch);
+  render(<AccessBoundary><p>Password workspace</p></AccessBoundary>);
+  await userEvent.type(await screen.findByLabelText('Username'), 'aayush');
+  await userEvent.type(screen.getByLabelText('Password'), 'Example-test-password-2026');
+  await userEvent.type(screen.getByLabelText('Confirm password'), 'Different-test-password-2026');
+  await userEvent.click(screen.getByRole('button', { name: 'Create account & continue' }));
+  expect(await screen.findByRole('alert')).toHaveTextContent('Passwords do not match.');
+  expect(fetch).toHaveBeenCalledTimes(1);
+  await userEvent.clear(screen.getByLabelText('Confirm password'));
+  await userEvent.type(screen.getByLabelText('Confirm password'), 'Example-test-password-2026');
+  await userEvent.click(screen.getByRole('button', { name: 'Create account & continue' }));
+  expect(await screen.findByText('Password workspace')).toBeInTheDocument();
+  expect(fetch.mock.calls[1][0]).toBe('/api/auth/setup');
+  expect(fetch.mock.calls[1][1].credentials).toBe('same-origin');
+  expect(localStorage.length).toBe(0);
+  expect(sessionStorage.length).toBe(0);
+});
+
+it('restores an authenticated server session without prompting for the password again', async () => {
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => ({ authentication_required: true, auth_mode: 'password', setup_required: false, authenticated: true, username: 'owner' }) }));
+  render(<AccessBoundary><p>Restored workspace</p></AccessBoundary>);
+  expect(await screen.findByText('Restored workspace')).toBeInTheDocument();
+  expect(screen.queryByLabelText('Password')).not.toBeInTheDocument();
+});

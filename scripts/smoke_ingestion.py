@@ -2,6 +2,7 @@
 Run from the repository root after starting both services. Creates a demo contract.
 """
 from pathlib import Path
+from getpass import getpass
 import httpx
 
 root = Path(__file__).resolve().parents[1]
@@ -9,6 +10,17 @@ source = root / 'samples/generated/vendor.docx'
 if not source.exists():
     raise SystemExit('Generate fixtures first: backend/.venv/bin/python scripts/generate_samples.py')
 with httpx.Client(base_url='http://127.0.0.1:5173', timeout=30) as client:
+    status = client.get('/api/access')
+    status.raise_for_status()
+    access = status.json()
+    if access.get('auth_mode') == 'password':
+        if access.get('setup_required'):
+            raise SystemExit('Create your owner account in the browser first, then rerun this check.')
+        response = client.post('/api/auth/login', json={'username': input('Username: '), 'password': getpass('Password: ')})
+        if response.status_code != 200:
+            raise SystemExit('Sign-in failed. Check your credentials or wait for the attempt limit to reset.')
+    elif access.get('authentication_required'):
+        client.headers['Authorization'] = 'Bearer ' + getpass('Workspace access token: ')
     ids = []
     for _ in range(2):
         with source.open('rb') as file:
@@ -26,4 +38,6 @@ with httpx.Client(base_url='http://127.0.0.1:5173', timeout=30) as client:
     saved.raise_for_status()
     for clause in saved.json()['clauses']:
         assert saved.json()['canonical_text'][clause['char_start']:clause['char_end']] == clause['text_content']
+    if access.get('auth_mode') == 'password':
+        client.post('/api/auth/logout').raise_for_status()
 print('Live proxy upload, source evidence, persistence and deduplication passed.')

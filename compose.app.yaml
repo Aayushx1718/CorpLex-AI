@@ -22,6 +22,7 @@ services:
         INCLUDE_ML: ${INCLUDE_ML:-false}
     environment:
       DATABASE_URL: ${CONTAINER_DATABASE_URL:-postgresql+psycopg://corplex:corplex_local@db:5432/corplex}
+      CORPLEX_PASSWORD_LOGIN: ${CORPLEX_PASSWORD_LOGIN:-true}
       APP_ENV: ${APP_ENV:-development}
       CORPLEX_ACCESS_TOKEN: ${CORPLEX_ACCESS_TOKEN:-}
       CORPLEX_REVIEW_TOKEN: ${CORPLEX_REVIEW_TOKEN:-}

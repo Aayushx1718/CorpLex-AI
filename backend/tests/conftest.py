@@ -40,7 +40,7 @@ def db_engine():
         raw = engine.raw_connection()
         try:
             with raw.cursor() as cursor:
-                for name in ['001_initial.sql', '002_ingestion.sql', '003_analytics.sql', '004_workbench.sql']:
+                for name in ['001_initial.sql', '002_ingestion.sql', '003_analytics.sql', '004_workbench.sql', '005_accounts.sql']:
                     cursor.execute((Path(__file__).resolve().parents[2] / 'db' / name).read_text())
         finally:
             raw.close()

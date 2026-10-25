@@ -14,7 +14,7 @@ def migrate():
             try:
                 cursor.execute("SELECT to_regclass('public.contracts')")
                 if cursor.fetchone()[0] is None:cursor.execute((sql_dir/'001_initial.sql').read_text())
-                for name in ['002_ingestion.sql','003_analytics.sql','004_workbench.sql']:
+                for name in ['002_ingestion.sql','003_analytics.sql','004_workbench.sql','005_accounts.sql']:
                     cursor.execute((sql_dir/name).read_text())
             finally:cursor.execute('SELECT pg_advisory_unlock(42000)')
     print('Database migrations applied without deleting existing data.')

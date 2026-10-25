@@ -2,10 +2,13 @@
 let accessToken = '';
 export function setAccessToken(value: string) { accessToken = value; }
 export function apiFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
-  if (!accessToken) return globalThis.fetch(input, init);
+
   const headers = new Headers(init?.headers);
-  headers.set('Authorization', `Bearer ${accessToken}`);
-  return globalThis.fetch(input, { ...init, headers });
+  if (accessToken) headers.set('Authorization', `Bearer ${accessToken}`);
+  return globalThis.fetch(input, { credentials: 'same-origin', ...init, headers }).then(response => {
+    if (response.status === 401) window.dispatchEvent(new Event('corplex:session-expired'));
+    return response;
+  });
 }
 export async function jsonResponse(response: Response) {
   const data = await response.json().catch(() => ({}));

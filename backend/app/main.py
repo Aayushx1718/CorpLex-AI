@@ -1,5 +1,8 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
+from fastapi.exceptions import RequestValidationError
+from fastapi.exception_handlers import request_validation_exception_handler
+from starlette.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 from pydantic import BaseModel
@@ -14,6 +17,8 @@ from app.research.routes import build_research_router
 from app.finance.routes import build_finance_router
 from app.finance.comparison import build_comparison_router
 from app.workflows.routes import build_workflow_router
+from app.accounts import AccountMiddleware, build_accounts_router, access_state, COOKIE
+from fastapi import Request, Response
 from app.security import SecurityMiddleware
 from app.workbench import build_workbench_router
 
@@ -28,6 +33,13 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="CorpLex AI", version="0.7.0", lifespan=lifespan)
+@app.exception_handler(RequestValidationError)
+async def safe_validation(request, error):
+    if request.url.path.startswith('/api/auth/'):
+        return JSONResponse({'detail': 'Use a username of 3–40 letters, numbers, dots, dashes or underscores, and a password of 12–128 characters.'}, status_code=422)
+    return await request_validation_exception_handler(request, error)
+
+
 app.add_middleware(
     CORSMiddleware, allow_origins=settings.cors_origins,
     allow_credentials=False, allow_methods=["GET", "POST"], allow_headers=["*"],
@@ -42,15 +54,20 @@ app.include_router(build_finance_router(engine))
 app.include_router(build_comparison_router(engine))
 app.include_router(build_workflow_router(engine, settings))
 app.include_router(build_workbench_router(engine))
+app.include_router(build_accounts_router(engine, settings))
+app.add_middleware(AccountMiddleware, engine=engine, settings=settings)
 app.add_middleware(SecurityMiddleware, settings=settings)
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=settings.allowed_hosts)
 
 
 @app.get("/api/access")
-def access_status():
-    return {"authentication_required": bool(settings.corplex_access_token),
-            "reviewer_token_required": bool(settings.corplex_review_token),
-            "mode": settings.app_env}
+def access_status(request: Request, response: Response):
+    response.headers['Cache-Control'] = 'no-store'
+    try:
+        return access_state(engine, settings, request.cookies.get(COOKIE))
+    except SQLAlchemyError:
+        raise HTTPException(503, 'Workspace authentication storage unavailable. Check migrations.') from None
+
 
 
 class Health(BaseModel):

@@ -10,7 +10,7 @@ A source-version lock and unique database constraint make workflow creation repl
 
 ## Identity and tokens
 
-Trusted local development defaults to no authentication and binds ports only to loopback. The UI clearly labels local reviewer names as **not identity-verified**. This is a demonstration review gate, not a compliance-grade identity assertion.
+The default laptop setup now requires a single-owner username/password account and binds ports only to loopback. See [interface.md](interface.md) for setup, password hashing, session revocation and local recovery. An explicit `CORPLEX_PASSWORD_LOGIN=false` opt-out exists only for trusted local development without a configured workspace token. The UI clearly labels local reviewer names as **not identity-verified**. This is a demonstration review gate, not a compliance-grade identity assertion.
 
 For protected operation set `CORPLEX_ACCESS_TOKEN` and a separate `CORPLEX_REVIEW_TOKEN`. All `/api/` routes except liveness and the nonsecret access-status endpoint require a bearer access token; review additionally requires the reviewer token in `X-Review-Token`. Token comparison is constant-time. Browser tokens stay in memory, never URLs/localStorage. Reviewer tokens are cleared after a decision. Token values are never returned by configuration/status routes or written to reports. Shared service tokens identify authorization capability, not an individual human; per-user SSO/RBAC is still needed for a multi-user production service.
 

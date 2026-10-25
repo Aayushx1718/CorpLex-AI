@@ -12,7 +12,7 @@ The web service listens on your own computer's loopback port **8080**. Use that 
 
 Stop with `docker compose -p corplex-app -f compose.app.yaml stop`. Do not delete named volumes containing documents you want to retain. Container processes do not survive an environment publication/restart automatically; run the startup command again. Use `APP_PORT` to choose another loopback port if 8080 is occupied.
 
-The default mode is trusted local development with no login/token. Use original synthetic samples; no confidential files are needed. Set tokens before any shared/public operation. Public website deployment is a separate action requiring a host/domain and deployment credentials.
+The default mode uses local username/password login: create the first owner account in the browser, then sign in on later visits. No paid provider or API key is needed; the account and hashed credentials remain in PostgreSQL. Existing documents survive the migration. See [account setup and local password recovery](interface.md). Use original synthetic samples; no confidential files are needed. Set tokens before any shared/public operation. Public website deployment is a separate action requiring a host/domain and deployment credentials.
 
 ## Host development and Windows
 

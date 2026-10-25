@@ -1,9 +1,12 @@
 # PostgreSQL schema
 
-The executable definitions are `db/001_initial.sql` and the repeatable additive migrations `db/002_ingestion.sql` and `db/003_analytics.sql`, plus `db/004_workbench.sql`. UUIDs identify domain entities; timestamps are UTC-aware. Money uses exact `numeric`, never binary floating point. Currency is explicit and totals must not combine currencies without a documented exchange-rate source and date.
+The executable definitions are `db/001_initial.sql` and the repeatable additive migrations `db/002_ingestion.sql` and `db/003_analytics.sql`, plus `db/004_workbench.sql` and `db/005_accounts.sql`. UUIDs identify domain entities; timestamps are UTC-aware. Money uses exact `numeric`, never binary floating point. Currency is explicit and totals must not combine currencies without a documented exchange-rate source and date.
 
 | Table | Responsibility / relationships |
 | --- | --- |
+| workspace_accounts | One local owner; normalized unique username and salted password hash |
+| workspace_sessions | Hashed random session token, account FK and explicit expiry; revoked on logout |
+| workspace_login_limits | Per-peer attempt window and count; no plaintext passwords or IP addresses |
 | contracts | Stable logical agreement identity and supported contract type |
 | document_versions | Immutable source versions; contract FK; unique content hash and per-contract version; storage reference and lifecycle dates |
 | document_sources | Original private bytes, canonical extracted text, page/paragraph/table anchors, metadata, warnings and extractor version; one-to-one with document_versions |

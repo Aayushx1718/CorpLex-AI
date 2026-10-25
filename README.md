@@ -10,7 +10,7 @@ With Git and Docker Desktop installed and running, clone this repository and run
 docker compose -p corplex-app -f compose.app.yaml up --build -d --wait
 ```
 
-The interface runs on your computer's loopback port **8080**. This container option does not require host Python, Node or uv. It includes the source-backed tools and recorded ML benchmark results; classification additionally requires the optional ML dependencies and trusted trained artifact. See [deployment and Windows instructions](docs/deployment.md).
+The interface runs on your computer's loopback port **8080**. On first launch, create your local username and password; later visits use Sign in. Passwords are hashed and no external account or paid service is needed. See [login and password recovery](docs/interface.md). This container option does not require host Python, Node or uv. It includes the source-backed tools and recorded ML benchmark results; classification additionally requires the optional ML dependencies and trusted trained artifact. See [deployment and Windows instructions](docs/deployment.md).
 
 ## Run locally
 
@@ -81,8 +81,8 @@ Generate all eight PDF/DOCX samples from the original text fixtures (ReportLab i
 
 ```bash
 backend/.venv/bin/python scripts/generate_samples.py
-curl --fail -F 'contract_type=vendor' -F 'title=Synthetic vendor' \
-  -F 'file=@samples/generated/vendor.docx' http://127.0.0.1:8000/api/contracts
+# Sign in in the browser, then upload the generated sample through Contract repository.
+# Direct private API requests now require an authenticated session (or configured workspace token).
 ```
 
 With both servers running, `backend/.venv/bin/python scripts/smoke_ingestion.py` verifies the live proxy, stored source evidence and duplicate behavior using the generated vendor fixture. It creates a synthetic demo record if not already present.
@@ -119,4 +119,4 @@ The classifier is active in the current cloud filesystem. Raw data and trained p
 
 Reproduce the small synthetic retrieval check with `backend/.venv/bin/python scripts/evaluate_research.py`. Run the optional protected-container smoke check with `backend/.venv/bin/python scripts/check_protected_stack.py` after building images and generating samples; it creates/stops only its own random-name test project on port 8081. It never prints generated test tokens.
 
-For shared operation, configure strong distinct workspace/reviewer tokens and a nondefault database password; `APP_ENV=production` refuses insecure defaults. Tokens belong in ignored local/runtime configuration, never in Git. The default local demonstration has no authentication and must not be exposed publicly. See the release limits before claiming production readiness.
+For shared operation, configure strong distinct workspace/reviewer tokens and a nondefault database password; `APP_ENV=production` refuses insecure defaults. Tokens belong in ignored local/runtime configuration, never in Git. The default local demonstration uses a single-owner password account and loopback networking; public exposure still requires the documented production controls. See the release limits before claiming production readiness.

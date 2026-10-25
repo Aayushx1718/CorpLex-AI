@@ -46,7 +46,7 @@ jobs:
           CORPLEX_BACKUP_DIR: ${{ runner.temp }}/corplex-backups
         run: |
           backend/.venv/bin/python scripts/generate_samples.py
-          curl --fail -F contract_type=vendor -F title=Recovery-check -F file=@samples/generated/vendor.docx http://127.0.0.1:8080/api/contracts > /dev/null
+          backend/.venv/bin/python scripts/check_password_stack.py --new-disposable-stack
           mkdir -p "$CORPLEX_BACKUP_DIR"
           docker compose -p corplex-ci -f compose.app.yaml -f compose.backup.yaml run --rm recovery backup
           backup_name=$(basename "$(find "$CORPLEX_BACKUP_DIR" -maxdepth 1 -name '*.dump' -print -quit)")

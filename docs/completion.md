@@ -9,7 +9,7 @@ The local portfolio application implements the seven planned phases within the e
 | Five-class CUAD clause classifier | Benchmark, training/activation pipeline, SHAP and lab implemented | Fresh Docker clones need optional ML dependencies and a trusted locally trained artifact for inference |
 | Contract research | Local retrieval, exact citations, abstention and optional hosted quote selection implemented | An opt-in synthetic live-check CLI is included; real provider validation needs a securely configured API key; the small synthetic evaluation is not real-world QA accuracy |
 | Financial scenarios and comparison | Implemented and tested | Explicit assumptions and textual differences require human interpretation |
-| LangGraph workflow and review | Persistent reports, human decisions, approval-gated export and audit implemented | Local reviewer names are unverified; shared tokens are not individual user/tenant identity |
+| LangGraph workflow and review | Persistent reports, human decisions, approval-gated export and audit implemented | A local owner account is implemented; reviewer labels are a separate assertion and multi-user/tenant controls are not implemented |
 | Laptop deployment | Docker stack verified and running on the user's laptop | Keep default unauthenticated mode local |
 | Backup and recovery | Backup/checksum plus isolated restore and source integrity checks implemented | User must choose protected storage, run backups, set retention and perform a reviewed live recovery switch |
 | Public portfolio demo | Not deployed | Hosting account and a verified current free-tier plan are required; do not expose the local development stack |
@@ -17,7 +17,7 @@ The local portfolio application implements the seven planned phases within the e
 
 ## Current agreed scope: free local application
 
-The user has chosen a local application with no domain, public hosting, paid API or resume-presentation deliverables. Hosted validation and public deployment are optional future work, not completion blockers for this scope. The interface now provides a local entry flow, live graphical dashboard, separate tool pages and a final System status page. See [interface.md](interface.md). Individual user accounts remain separate from the explicitly labelled local entry flow.
+The user has chosen a local application with no domain, public hosting, paid API or resume-presentation deliverables. Hosted validation and public deployment are optional future work, not completion blockers for this scope. The interface now provides a local entry flow, live graphical dashboard, separate tool pages and a final System status page. See [interface.md](interface.md). The entry flow now uses a real single-owner local username/password account. Multi-user registration and tenant authorization remain outside this local scope.
 
 ## Optional external steps before claiming a full hosted release
 

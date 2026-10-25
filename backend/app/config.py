@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     ml_artifacts_dir: Path = Path(__file__).resolve().parents[2] / 'artifacts/ml'
     corplex_llm_api_key: str = Field(default='', repr=False)
     corplex_llm_model: str = 'gpt-4.1-mini'
+    corplex_password_login: bool = True
     corplex_access_token: str = Field(default='', repr=False)
     corplex_review_token: str = Field(default='', repr=False)
     allowed_hosts: list[str] = ['localhost', '127.0.0.1', 'testserver', 'backend']
