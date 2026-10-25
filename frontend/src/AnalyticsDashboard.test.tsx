@@ -76,3 +76,14 @@ it('paginates the register without requesting a different filter scope', async (
   await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
   expect(new URL(fetch.mock.calls[1][0], 'http://test').searchParams.get('offset')).toBe('20');
 });
+
+it('shows live summary charts and a bounded register without the full analytics forms', async () => {
+  mockData({ ...overview, contracts: Array.from({ length: 8 }, (_, i) => ({ ...overview.contracts[0], contract_id: `c${i}`, document_id: `d${i}`, title: `Demo ${i}` })) });
+  render(<AnalyticsDashboard summary />);
+  expect(await screen.findByText('Agreement chart')).toBeInTheDocument();
+  expect(screen.getByText('Obligation chart')).toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Apply filters' })).not.toBeInTheDocument();
+  expect(screen.getByRole('link', { name: 'Demo 5' })).toHaveAttribute('href', '#/contracts');
+  expect(screen.queryByRole('link', { name: 'Demo 6' })).not.toBeInTheDocument();
+  expect(screen.queryByText('9007199254740993.1234')).not.toBeInTheDocument();
+});

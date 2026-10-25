@@ -19,3 +19,9 @@ This document describes what was actually exercised during the remaining-work im
 - Prior core implementation CI passed at commit `7ebbd28` (GitHub Actions run 40183341015). The new recovery CI step still requires its own remote execution after push; earlier results do not validate the new step.
 
 - Recovery negative checks rejected both a modified archive (checksum mismatch) and a valid-checksum archive containing intentionally invalid clause offsets. Both used isolated copies of synthetic demo data.
+
+## Workspace interface redesign
+
+- Frontend suite: **26 tests passed**, including local entry, protected-token rejection, unavailable access configuration, token/name clearing on exit, separate-page history navigation and a live-data summary with a bounded agreement table. Production TypeScript/Vite build passed.
+- Chromium exercised the built frontend against the running application's API: entry, two real portfolio charts, agreement register, each workspace page, backend/database status, and leaving the workspace. Desktop (1440px), half-screen (960px) and phone (390px) layouts passed page-overflow checks. Wide tables scroll inside their container.
+- The local entry screen is explicitly not an account/authentication system. Protected mode continues to validate actual workspace tokens, keeps them in memory and clears them on exit/reload. No paid services, external assets or API keys are required for the local interface.

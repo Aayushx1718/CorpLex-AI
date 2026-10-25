@@ -1,6 +1,6 @@
 # CorpLex AI
 
-Corporate contract intelligence and financial risk analytics. The portfolio now includes document ingestion, SQL analytics, evaluated clause-type ML, cited research, explicit what-if scenarios, version comparison and human-reviewed LangGraph reports. **No validated business-risk severity model or autonomous legal decision maker is claimed.** Hosted LLM evidence selection is implemented but awaits a secure provider key and live validation.
+Corporate contract intelligence and financial risk analytics. The portfolio now includes document ingestion, SQL analytics, evaluated clause-type ML, cited research, explicit what-if scenarios, version comparison and human-reviewed LangGraph reports. **No validated business-risk severity model or autonomous legal decision maker is claimed.** The application runs locally without any API key, domain or paid hosting. Optional hosted LLM evidence selection is excluded from this free workflow. See [the workspace interface](docs/interface.md) for the entry screen, live dashboard and separate pages.
 
 ## Quickest way to see the app
 

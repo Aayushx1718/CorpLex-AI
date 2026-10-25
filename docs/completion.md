@@ -15,7 +15,11 @@ The local portfolio application implements the seven planned phases within the e
 | Public portfolio demo | Not deployed | Hosting account and a verified current free-tier plan are required; do not expose the local development stack |
 | Business-risk severity model | Not available | Requires licensed expert risk labels, annotation agreement and separate validation; clause labels cannot substitute |
 
-## External steps before claiming a full hosted release
+## Current agreed scope: free local application
+
+The user has chosen a local application with no domain, public hosting, paid API or resume-presentation deliverables. Hosted validation and public deployment are optional future work, not completion blockers for this scope. The interface now provides a local entry flow, live graphical dashboard, separate tool pages and a final System status page. See [interface.md](interface.md). Individual user accounts remain separate from the explicitly labelled local entry flow.
+
+## Optional external steps before claiming a full hosted release
 
 1. Configure `CORPLEX_LLM_API_KEY` securely on the backend and validate real supported/unsupported questions with the selected model. Never put the key in chat, source, screenshots or the frontend. Hosted calls may incur provider usage charges.
 2. Choose and provision the previously requested free public demo using current verified host limits. Configure TLS, distinct access/reviewer tokens, allowed hosts/origins and a private database. Verify persistence/restart behavior and disclose any free-tier expiration or sleep limits. No host or paid service has been created.
